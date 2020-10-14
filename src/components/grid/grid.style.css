@@ -6,4 +6,8 @@
     grid-row-gap: 0;
 
     justify-content: center;
+    border-style: outset;
+
+    height: 99px;
+    width: 99px;
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import {Action, ActionTypes} from "../../actions/actions";
 import {CellProps, CellState} from "../../components/cell/cell.component";
 
