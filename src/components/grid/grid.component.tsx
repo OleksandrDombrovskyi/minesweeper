@@ -1,17 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import GridCell, {CellProps} from "../cell/cell.component";
 import './grid.style.css';
 import {GameState} from "../../reducers/game/game.reducer";
 import {createStructuredSelector} from "reselect";
-import {selectGameGrid, selectIsGameFailed} from "../../reducers/game/game.selector";
+import {selectGameGrid, selectIsGameFailed, selectIsGameWon} from "../../reducers/game/game.selector";
 import {AppState} from "../../reducers/rootReducer";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
+import {ActionTypes} from "../../actions/actions";
 
 const GridComponent = (props: GameState) => {
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (props.isGameWon) {
+            dispatch({type: ActionTypes.gameWon})
+        }
+    })
+
     console.log("Render grid");
     return (
-        <div className={"grid" + (props.isGameFailed ? " disabled" : "")}>
+        <div className={"grid" + (props.isGameFailed || props.isGameWon ? " disabled" : "")}>
             {
                 props.grid.cells.map((cellProps: Array<CellProps>) =>
                     cellProps.map(cellProp => <GridCell
@@ -23,7 +32,8 @@ const GridComponent = (props: GameState) => {
 
 const mapStateToProps = createStructuredSelector<AppState, GameState>({
     grid: selectGameGrid,
-    isGameFailed: selectIsGameFailed
+    isGameFailed: selectIsGameFailed,
+    isGameWon: selectIsGameWon
 })
 
 export default connect(mapStateToProps)(GridComponent)

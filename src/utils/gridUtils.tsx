@@ -1,11 +1,15 @@
 import {Grid} from "../reducers/game/game.reducer";
-import {CellPosition, CellState} from "../components/cell/cell.component";
+import {CellPosition, CellProps, CellState} from "../components/cell/cell.component";
 
 export function handleOnClick(grid: Grid, cellPosition: CellPosition) {
     const clickedCell = grid.cells[cellPosition.y][cellPosition.x];
+
+    if (clickedCell.state === CellState.FLAGGED) {
+        return;
+    }
+
     if (clickedCell.number === -1) {
         clickedCell.isFailed = true;
-        return;
     }
 
     openCell(grid, clickedCell.position)
@@ -13,10 +17,16 @@ export function handleOnClick(grid: Grid, cellPosition: CellPosition) {
 
 export function openAllBombs(grid: Grid): void {
     grid.cells.forEach(cellArray => cellArray.forEach(cell => {
-        if (cell.number === -1) {
+        if (cell.number === -1 && cell.state !== CellState.FLAGGED) {
             cell.state = CellState.OPEN;
         }
     }));
+}
+
+export function isAllCellsOpened(cells: Array<Array<CellProps>>) {
+    return cells.flat()
+        .filter(cell => cell.number !== -1)
+        .every(cell => cell.state === CellState.OPEN)
 }
 
 function openCell(grid: Grid, cellPosition: CellPosition) {

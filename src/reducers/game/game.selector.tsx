@@ -15,6 +15,11 @@ export const selectIsGameFailed = createSelector<AppState, GameState, boolean>(
     (gameState: GameState) => gameState.isGameFailed
 )
 
+export const selectIsGameWon = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isGameWon
+)
+
 export const selectGameGridBombs = createSelector<AppState, Grid, CellProps[][]>(
     [selectGameGrid],
     (grid: Grid) => grid.cells

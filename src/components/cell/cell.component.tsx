@@ -1,4 +1,4 @@
-import React, {Dispatch} from "react";
+import React, {Dispatch, useEffect} from "react";
 import './cell.style.css';
 import {connect, useDispatch} from "react-redux";
 import {Action, ActionTypes} from "../../actions/actions";
@@ -29,9 +29,11 @@ const GridCell = (props: CellProps) => {
     const {position, number, state, isFailed} = props;
     const dispatch = useDispatch();
 
-    if (isFailed) {
-        dispatch({type: ActionTypes.cellClickFailed});
-    }
+    useEffect(() => {
+        if (isFailed) {
+            dispatch({type: ActionTypes.cellClickFailed});
+        }
+    });
 
     console.log("Render cell");
 
