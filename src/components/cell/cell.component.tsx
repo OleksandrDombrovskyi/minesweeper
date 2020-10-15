@@ -3,7 +3,7 @@ import './cell.style.css';
 import {connect, useDispatch} from "react-redux";
 import {Action, ActionTypes} from "../../actions/actions";
 import {AppState} from "../../reducers/rootReducer";
-import {selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
+import {selectCellIsFailed, selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
 
 export enum CellState {
     INITIAL,
@@ -21,19 +21,24 @@ export interface CellProps {
     position: CellPosition;
     number: number;
     state: CellState;
+    isFailed: boolean;
 }
 
 const GridCell = (props: CellProps) => {
 
-    const {position, number, state} = props;
+    const {position, number, state, isFailed} = props;
     const dispatch = useDispatch();
+
+    if (isFailed) {
+        dispatch({type: ActionTypes.cellClickFailed});
+    }
 
     console.log("Render cell");
 
     return (
         <div className="gridCell" onClick={onCellClick(position, dispatch)}>
             {
-                getCellElement(state, number)
+                getCellElement(state, number, isFailed)
             }
         </div>
     );
@@ -45,17 +50,13 @@ function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {
     };
 }
 
-function getCellElement(state: CellState, number: number) {
+function getCellElement(state: CellState, number: number, isFailed: boolean) {
     switch (state) {
         case CellState.INITIAL:
-            return (
-                <svg width="33" height="33">
-                    <rect className="initial" width="30" height="30"/>
-                </svg>
-            );
+            return getInitialCellElement();
         case CellState.OPEN:
             if (number === -1) {
-                return getBombCellElement();
+                return getBombCellElement(isFailed);
             } else if (number > 0) {
                 return getNumberCellElement(number);
             } else {
@@ -66,6 +67,14 @@ function getCellElement(state: CellState, number: number) {
         case CellState.QUESTIONED:
             return getQuestionedCellElement();
     }
+}
+
+function getInitialCellElement() {
+    return (
+        <svg width="33" height="33">
+            <rect className="initial" width="30" height="30"/>
+        </svg>
+    );
 }
 
 function getQuestionedCellElement() {
@@ -88,11 +97,11 @@ function getFlaggedCellElement() {
     );
 }
 
-function getBombCellElement() {
+function getBombCellElement(isFailed: boolean) {
     return (
         <div className="img-overlay-svg">
             <svg width="33" height="33">
-                <rect className="open" width="30" height="30"/>
+                <rect className={"open" + (isFailed ? " failedCell" : "")} width="30" height="30"/>
             </svg>
             <img width="33" height="33" src="bomb.svg" alt="123"/>
         </div>
@@ -119,7 +128,8 @@ function getEmptyCellElement() {
 const mapStateToProps = (state: AppState, ownProps: CellProps): CellProps => ({
     position: ownProps.position,
     number: selectCellNumber(ownProps.position)(state),
-    state: selectCellState(ownProps.position)(state)
+    state: selectCellState(ownProps.position)(state),
+    isFailed: selectCellIsFailed(ownProps.position)(state)
 })
 
 export default connect(mapStateToProps)(GridCell)

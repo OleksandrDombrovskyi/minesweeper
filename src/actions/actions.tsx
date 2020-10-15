@@ -3,7 +3,8 @@ import {CellPosition} from "../components/cell/cell.component";
 
 export enum ActionTypes {
     startGame,
-    cellClicked
+    cellClicked,
+    cellClickFailed
 }
 
 export interface StartGame {
@@ -16,4 +17,9 @@ export interface CellClicked {
     payload: CellPosition
 }
 
-export type Action = StartGame | CellClicked;
+export interface GameFailed {
+    type: ActionTypes.cellClickFailed,
+    payload: null
+}
+
+export type Action = StartGame | CellClicked | GameFailed;

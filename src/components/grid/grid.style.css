@@ -11,3 +11,7 @@
     height: 99px;
     width: 99px;
 }
+
+.disabled {
+    pointer-events: none;
+}

@@ -10,6 +10,11 @@ export const selectGameGrid = createSelector<AppState, GameState, Grid>(
     (gameState: GameState) => gameState.grid
 );
 
+export const selectIsGameFailed = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isGameFailed
+)
+
 export const selectGameGridBombs = createSelector<AppState, Grid, CellProps[][]>(
     [selectGameGrid],
     (grid: Grid) => grid.cells
@@ -28,4 +33,9 @@ export const selectCellNumber = (position: CellPosition) => createSelector<AppSt
 export const selectCellState = (position: CellPosition) => createSelector<AppState, CellProps, CellState>(
     [selectClickedCell(position)],
     (cellProps: CellProps) => cellProps.state
+)
+
+export const selectCellIsFailed = (position: CellPosition) => createSelector<AppState, CellProps, boolean>(
+    [selectClickedCell(position)],
+    (cellProps: CellProps) => cellProps.isFailed
 )
