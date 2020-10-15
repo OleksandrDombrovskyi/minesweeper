@@ -30,10 +30,7 @@ export const INITIAL_STATE: GameState = {
 export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): GameState => {
     switch (action.type) {
         case ActionTypes.startGame:
-            return {
-                ...state,
-                grid: action.payload
-            }
+            return action.payload;
         case ActionTypes.cellClicked:
             return {
                 ...state,

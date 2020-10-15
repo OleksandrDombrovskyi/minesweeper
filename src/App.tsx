@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/header.component";
+import {Header} from "./components/header/header.component";
 import {Body} from "./components/body/body.component";
 
 export const App = () => {
