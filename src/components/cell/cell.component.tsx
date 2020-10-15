@@ -1,7 +1,9 @@
 import React, {Dispatch} from "react";
 import './cell.style.css';
-import {useDispatch} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {Action, ActionTypes} from "../../actions/actions";
+import {AppState} from "../../reducers/rootReducer";
+import {selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
 
 export enum CellState {
     INITIAL,
@@ -21,13 +23,15 @@ export interface CellProps {
     state: CellState;
 }
 
-export const GridCell = (props: CellProps) => {
+const GridCell = (props: CellProps) => {
 
-    const {number, state} = props;
+    const {position, number, state} = props;
     const dispatch = useDispatch();
 
+    console.log("Render cell");
+
     return (
-        <div className="gridCell" onClick={onCellClick(props, dispatch)}>
+        <div className="gridCell" onClick={onCellClick(position, dispatch)}>
             {
                 getCellElement(state, number)
             }
@@ -35,9 +39,9 @@ export const GridCell = (props: CellProps) => {
     );
 }
 
-function onCellClick(props: CellProps, dispatch: Dispatch<Action>) {
+function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {
     return () => {
-        dispatch({type: ActionTypes.cellClicked, payload: props.position})
+        dispatch({type: ActionTypes.cellClicked, payload: position})
     };
 }
 
@@ -111,3 +115,11 @@ function getEmptyCellElement() {
         </svg>
     );
 }
+
+const mapStateToProps = (state: AppState, ownProps: CellProps): CellProps => ({
+    position: ownProps.position,
+    number: selectCellNumber(ownProps.position)(state),
+    state: selectCellState(ownProps.position)(state)
+})
+
+export default connect(mapStateToProps)(GridCell)

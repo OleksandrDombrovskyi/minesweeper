@@ -22,14 +22,6 @@ export const INITIAL_STATE: GameState = {
     }
 }
 
-function getNewGrid(currentGrid: Grid, cellPosition: CellPosition) {
-    currentGrid.cells[cellPosition.y][cellPosition.x].state = CellState.OPEN
-    console.log(currentGrid)
-    // logic bomb or not
-    //TODO: how to fix: select cell selector and use it in GridCell component
-    return Object.assign({}, currentGrid);
-}
-
 export const gameReducer = (state: GameState = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case ActionTypes.startGame:
@@ -45,4 +37,9 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action) =>
         default:
             return INITIAL_STATE;
     }
+}
+
+function getNewGrid(currentGrid: Grid, cellPosition: CellPosition) {
+    currentGrid.cells[cellPosition.y][cellPosition.x].state = CellState.OPEN
+    return currentGrid;
 }

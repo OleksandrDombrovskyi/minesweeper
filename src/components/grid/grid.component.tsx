@@ -1,7 +1,7 @@
 import React from "react";
-import {CellProps, GridCell} from "../cell/cell.component";
+import GridCell, {CellProps} from "../cell/cell.component";
 import './grid.style.css';
-import {GameState, Grid} from "../../reducers/game/game.reducer";
+import {GameState} from "../../reducers/game/game.reducer";
 import {createStructuredSelector} from "reselect";
 import {selectGameGrid} from "../../reducers/game/game.selector";
 import {AppState} from "../../reducers/rootReducer";
@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 
 const GridComponent = (props: GameState) => {
 
+    console.log("Render grid");
     return (
         <div className="grid">
             {
