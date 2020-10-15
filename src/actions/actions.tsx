@@ -1,7 +1,9 @@
 import {Grid} from "../reducers/game/game.reducer";
+import {CellPosition} from "../components/cell/cell.component";
 
 export enum ActionTypes {
-    startGame
+    startGame,
+    cellClicked
 }
 
 export interface StartGame {
@@ -9,4 +11,9 @@ export interface StartGame {
     payload: Grid
 }
 
-export type Action = StartGame;
+export interface CellClicked {
+    type: ActionTypes.cellClicked,
+    payload: CellPosition
+}
+
+export type Action = StartGame | CellClicked;

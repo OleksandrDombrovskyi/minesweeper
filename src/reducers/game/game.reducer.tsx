@@ -1,5 +1,5 @@
 import {Action, ActionTypes} from "../../actions/actions";
-import {CellProps, CellState} from "../../components/cell/cell.component";
+import {CellPosition, CellProps, CellState} from "../../components/cell/cell.component";
 
 export interface Grid {
     cells: Array<Array<CellProps>>
@@ -12,14 +12,22 @@ export interface GameState {
 export const INITIAL_STATE: GameState = {
     grid: {
         cells: [
-            [{position: {x: 0, y: 0}, number: 2, state: CellState.OPEN}, {position: {x: 1, y: 0}, number: -1, state: CellState.OPEN}, {position: {x: 2, y: 0}, number: 1, state: CellState.OPEN}],
-            [{position: {x: 0, y: 1}, number: -1, state: CellState.OPEN}, {position: {x: 1, y: 1}, number: 2, state: CellState.OPEN}, {position: {x: 2, y: 1}, number: 1, state: CellState.FLAGGED}],
-            [{position: {x: 0, y: 2}, number: 1, state: CellState.OPEN}, {position: {x: 1, y: 2}, number: 1, state: CellState.QUESTIONED}, {position: {x: 2, y: 2}, number: 0, state: CellState.OPEN}]
+            [{position: {x: 0, y: 0}, number: 2, state: CellState.INITIAL}, {position: {x: 1, y: 0}, number: -1, state: CellState.INITIAL}, {position: {x: 2, y: 0}, number: 1, state: CellState.INITIAL}],
+            [{position: {x: 0, y: 1}, number: -1, state: CellState.INITIAL}, {position: {x: 1, y: 1}, number: 2, state: CellState.INITIAL}, {position: {x: 2, y: 1}, number: 1, state: CellState.INITIAL}],
+            [{position: {x: 0, y: 2}, number: 1, state: CellState.INITIAL}, {position: {x: 1, y: 2}, number: 1, state: CellState.INITIAL}, {position: {x: 2, y: 2}, number: 0, state: CellState.INITIAL}]
         ]
         // cells: [
         //     [{position: {x: 0, y: 0}, number: -1, state: CellState.FLAGGED}]
         // ]
     }
+}
+
+function getNewGrid(currentGrid: Grid, cellPosition: CellPosition) {
+    currentGrid.cells[cellPosition.y][cellPosition.x].state = CellState.OPEN
+    console.log(currentGrid)
+    // logic bomb or not
+    //TODO: how to fix: select cell selector and use it in GridCell component
+    return Object.assign({}, currentGrid);
 }
 
 export const gameReducer = (state: GameState = INITIAL_STATE, action: Action) => {
@@ -28,6 +36,11 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action) =>
             return {
                 ...state,
                 grid: action.payload
+            }
+        case ActionTypes.cellClicked:
+            return {
+                ...state,
+                grid: getNewGrid(state.grid, action.payload)
             }
         default:
             return INITIAL_STATE;

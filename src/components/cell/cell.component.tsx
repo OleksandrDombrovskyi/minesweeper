@@ -1,5 +1,7 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import './cell.style.css';
+import {useDispatch} from "react-redux";
+import {Action, ActionTypes} from "../../actions/actions";
 
 export enum CellState {
     INITIAL,
@@ -22,14 +24,21 @@ export interface CellProps {
 export const GridCell = (props: CellProps) => {
 
     const {number, state} = props;
+    const dispatch = useDispatch();
 
     return (
-        <div className="gridCell">
+        <div className="gridCell" onClick={onCellClick(props, dispatch)}>
             {
                 getCellElement(state, number)
             }
         </div>
     );
+}
+
+function onCellClick(props: CellProps, dispatch: Dispatch<Action>) {
+    return () => {
+        dispatch({type: ActionTypes.cellClicked, payload: props.position})
+    };
 }
 
 function getCellElement(state: CellState, number: number) {

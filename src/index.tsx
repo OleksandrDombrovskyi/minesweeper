@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
 import * as serviceWorker from './serviceWorker';
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import {Provider} from 'react-redux';
 import {reducers} from "./reducers/rootReducer";
+import logger from 'redux-logger';
 
-const store = createStore(reducers);
+const middlewares = [];
+
+if (process.env.NODE_ENV === 'development') {
+    middlewares.push(logger);
+}
+
+const store = createStore(reducers, applyMiddleware(...middlewares));
 
 ReactDOM.render(
     <React.StrictMode>
