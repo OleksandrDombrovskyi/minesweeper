@@ -42,8 +42,6 @@ const GridCell = (props: CellProps) => {
         }
     });
 
-    console.log("Render cell");
-
     return (
         <div className="gridCell" onClick={onCellClick(position, dispatch)}
              onContextMenu={onCellRightClick(position, dispatch)}>

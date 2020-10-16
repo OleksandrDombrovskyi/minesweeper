@@ -23,7 +23,6 @@ const GridComponent = (props: GameState) => {
         }
     })
 
-    console.log("Render grid");
     return (
         <div className={"grid" + (props.isGameFailed || props.isGameWon ? " disabled" : "")}>
             {
