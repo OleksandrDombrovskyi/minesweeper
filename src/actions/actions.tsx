@@ -1,4 +1,4 @@
-import {GameState, Grid} from "../reducers/game/game.reducer";
+import {GameState} from "../reducers/game/game.reducer";
 import {CellPosition} from "../components/cell/cell.component";
 
 export enum ActionTypes {
@@ -7,6 +7,7 @@ export enum ActionTypes {
     cellClickFailed,
     gameWon,
     cellRightClicked,
+    incrementTime,
 }
 
 export interface StartGame {
@@ -34,4 +35,9 @@ export interface GameWon {
     payload: null
 }
 
-export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked;
+export interface IncrementTime {
+    type: ActionTypes.incrementTime,
+    payload: null
+}
+
+export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime;

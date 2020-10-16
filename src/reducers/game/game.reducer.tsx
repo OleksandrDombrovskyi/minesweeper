@@ -11,6 +11,7 @@ export interface GameState {
     isGameWon: boolean;
     isGameFailed: boolean
     isGridGenerated: boolean;
+    gameTime: number;
     grid: Grid
 }
 
@@ -18,6 +19,7 @@ export const INITIAL_STATE: GameState = {
     isGameWon: false,
     isGameFailed: false,
     isGridGenerated: false,
+    gameTime: 0,
     grid: {
         cells: generatedDefaultGrid()
     }
@@ -62,9 +64,18 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 ...state,
                 grid: openAllBombsGrid(state.grid),
             }
+        case ActionTypes.incrementTime:
+            return {
+                ...state,
+                gameTime: isGameInProcess(state) ? state.gameTime + 1 : state.gameTime,
+            }
         default:
             return INITIAL_STATE;
     }
+}
+
+function isGameInProcess(state: GameState) {
+    return state.isGridGenerated && !state.isGameFailed && !state.isGameWon;
 }
 
 function isGameWon(cells: CellProps[][]) {

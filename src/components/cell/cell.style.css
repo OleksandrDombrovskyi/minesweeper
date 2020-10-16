@@ -18,15 +18,6 @@ svg {
     position: relative;
 }
 
-span {
-    font-size: 18pt;
-    font-family: Verdana, serif;
-    font-weight: 500;
-    position: relative;
-    top: -35px;
-    cursor: default;
-}
-
 .img-overlay-svg {
     position: relative;
 }
@@ -41,6 +32,21 @@ img.flag {
     position: relative;
     top: -32px;
     left: -2px;
+}
+
+span.question, span[class*="number_"] {
+    font-size: 18pt;
+    font-family: Verdana, serif;
+    font-weight: 500;
+    position: relative;
+    top: -35px;
+    cursor: default;
+}
+
+span.question {
+    color: darkblue;
+    position: relative;
+    left: -1px;
 }
 
 span.number_1 {
@@ -65,10 +71,4 @@ span.number_5 {
 
 span.number_6 {
     color: #350103;
-}
-
-span.question {
-    color: darkblue;
-    position: relative;
-    left: -1px;
 }

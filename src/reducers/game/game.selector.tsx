@@ -49,3 +49,18 @@ export const selectCellIsFailed = (position: CellPosition) => createSelector<App
     [selectClickedCell(position)],
     (cellProps: CellProps) => cellProps.isFailed
 )
+
+export const selectBombAmount = createSelector<AppState, Grid, number>(
+    [selectGameGrid],
+    (grid: Grid) => grid.cells.flat().filter(cell => cell.number === -1).length
+)
+
+export const selectFlagAmount = createSelector<AppState, Grid, number>(
+    [selectGameGrid],
+    (grid: Grid) => grid.cells.flat().filter(cell => cell.state === CellState.FLAGGED).length
+)
+
+export const selectGameTime = createSelector<AppState, GameState, number>(
+    [selectGameState],
+    (gameState: GameState) => gameState.gameTime
+)

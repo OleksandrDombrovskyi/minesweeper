@@ -1,0 +1,20 @@
+span.bomb_amount {
+    position: relative;
+    color: red;
+    top: 0;
+    left: 0;
+}
+
+div.image_container {
+    display: inline-block;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+}
+
+img.bomb_image {
+    position: relative;
+    left: -5px;
+    width: 60px;
+    height: 60px;
+}

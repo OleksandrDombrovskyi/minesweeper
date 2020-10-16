@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'digital-dismay';
+    src: url('./Digital_Dismay.otf');
+}
+
+.timer_span {
+    font-family: 'digital-dismay', sans-serif;
+    font-size: 25px;
+    color: red;
+    background: darkblue;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: relative;
+    top: 15px;
+}
