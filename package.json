@@ -1,4 +1,5 @@
 {
+  "homepage": "http://dombrovskyioleksandr.github.io/sapper",
   "type": "module",
   "name": "sapper",
   "version": "0.1.0",
@@ -23,6 +24,8 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -44,6 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-redux": "^7.1.9"
+    "@types/react-redux": "^7.1.9",
+    "gh-pages": "^3.1.0"
   }
 }
