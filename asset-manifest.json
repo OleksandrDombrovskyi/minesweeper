@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/sapper/static/css/main.8ac5d7dd.chunk.css",
+    "main.js": "/sapper/static/js/main.c333f427.chunk.js",
+    "main.js.map": "/sapper/static/js/main.c333f427.chunk.js.map",
+    "runtime-main.js": "/sapper/static/js/runtime-main.b63fdf8d.js",
+    "runtime-main.js.map": "/sapper/static/js/runtime-main.b63fdf8d.js.map",
+    "static/js/2.549ff282.chunk.js": "/sapper/static/js/2.549ff282.chunk.js",
+    "static/js/2.549ff282.chunk.js.map": "/sapper/static/js/2.549ff282.chunk.js.map",
+    "index.html": "/sapper/index.html",
+    "precache-manifest.734e476cbd0cc6659402cf527572b799.js": "/sapper/precache-manifest.734e476cbd0cc6659402cf527572b799.js",
+    "service-worker.js": "/sapper/service-worker.js",
+    "static/css/main.8ac5d7dd.chunk.css.map": "/sapper/static/css/main.8ac5d7dd.chunk.css.map",
+    "static/js/2.549ff282.chunk.js.LICENSE.txt": "/sapper/static/js/2.549ff282.chunk.js.LICENSE.txt",
+    "static/media/timer.style.css": "/sapper/static/media/Digital_Dismay.582cac29.otf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b63fdf8d.js",
+    "static/js/2.549ff282.chunk.js",
+    "static/css/main.8ac5d7dd.chunk.css",
+    "static/js/main.c333f427.chunk.js"
+  ]
+}
