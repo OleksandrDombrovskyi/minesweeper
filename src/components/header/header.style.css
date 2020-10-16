@@ -16,4 +16,5 @@ img.smile_image:active {
 .header {
     display: flex;
     justify-content: center;
+    user-select: none;
 }
