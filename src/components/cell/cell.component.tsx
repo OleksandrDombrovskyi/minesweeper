@@ -1,4 +1,4 @@
-import React, {Dispatch, useEffect} from "react";
+import React, {Dispatch, MouseEvent, useEffect} from "react";
 import './cell.style.css';
 import {connect, useDispatch} from "react-redux";
 import {Action, ActionTypes} from "../../actions/actions";
@@ -45,12 +45,20 @@ const GridCell = (props: CellProps) => {
     console.log("Render cell");
 
     return (
-        <div className="gridCell" onClick={onCellClick(position, dispatch)}>
+        <div className="gridCell" onClick={onCellClick(position, dispatch)} onContextMenu={onCellRightClick(position, dispatch)}>
             {
                 getCellElement(state, number, isFailed)
             }
         </div>
     );
+}
+
+function onCellRightClick(position: CellPosition, dispatch: Dispatch<any>) {
+    return (event: MouseEvent) => {
+        // prevent opening contextual menu on right button click
+        event.preventDefault();
+        dispatch({type: ActionTypes.cellRightClicked, payload: position})
+    }
 }
 
 function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {

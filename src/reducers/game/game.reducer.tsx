@@ -1,6 +1,6 @@
 import {Action, ActionTypes} from "../../actions/actions";
 import {CellPosition, CellProps} from "../../components/cell/cell.component";
-import {handleOnClick, isAllCellsOpened, openAllBombs} from "../../utils/gridUtils";
+import {handleOnClick, handleOnRightClick, isAllCellsOpened, openAllBombs} from "../../utils/gridUtils";
 import {generatedDefaultGrid, generateGrid} from "../../utils/gridGeneratorUtils";
 
 export interface Grid {
@@ -50,6 +50,13 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 grid: openAllBombsGrid(state.grid),
                 isGameFailed: true,
             }
+        case ActionTypes.cellRightClicked:
+            return {
+                ...state,
+                grid: {
+                    cells: rerenderGridOnRightClick(state.grid.cells, action.payload),
+                }
+            }
         case ActionTypes.gameWon:
             return {
                 ...state,
@@ -71,5 +78,10 @@ function openAllBombsGrid(grid: Grid) {
 
 function rerenderGridOnClick(cells: CellProps[][], cellPosition: CellPosition) {
     handleOnClick(cells, cellPosition);
+    return cells;
+}
+
+function rerenderGridOnRightClick(cells: CellProps[][], cellPosition: CellPosition): CellProps[][]  {
+    handleOnRightClick(cells, cellPosition);
     return cells;
 }

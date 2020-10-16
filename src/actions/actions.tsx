@@ -5,7 +5,8 @@ export enum ActionTypes {
     startGame,
     cellClicked,
     cellClickFailed,
-    gameWon
+    gameWon,
+    cellRightClicked,
 }
 
 export interface StartGame {
@@ -15,6 +16,11 @@ export interface StartGame {
 
 export interface CellClicked {
     type: ActionTypes.cellClicked,
+    payload: CellPosition
+}
+
+export interface CellRightClicked {
+    type: ActionTypes.cellRightClicked,
     payload: CellPosition
 }
 
@@ -28,4 +34,4 @@ export interface GameWon {
     payload: null
 }
 
-export type Action = StartGame | CellClicked | GameFailed | GameWon;
+export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked;

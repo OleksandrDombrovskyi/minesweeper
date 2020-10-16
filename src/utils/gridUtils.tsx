@@ -15,6 +15,20 @@ export function handleOnClick(cells: CellProps[][], cellPosition: CellPosition) 
     openCell(cells, clickedCell.position)
 }
 
+export function handleOnRightClick(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
+    switch (clickedCell.state) {
+        case CellState.INITIAL:
+            clickedCell.state = CellState.FLAGGED;
+            break;
+        case CellState.FLAGGED:
+            clickedCell.state = CellState.QUESTIONED;
+            break;
+        case CellState.QUESTIONED:
+            clickedCell.state = CellState.INITIAL;
+    }
+}
+
 export function openAllBombs(grid: Grid): void {
     grid.cells.forEach(cellArray => cellArray.forEach(cell => {
         if (cell.number === -1 && cell.state !== CellState.FLAGGED) {
