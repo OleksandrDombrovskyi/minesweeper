@@ -41,6 +41,7 @@ span.question, span[class*="number_"] {
     position: relative;
     top: -35px;
     cursor: default;
+    user-select: none;
 }
 
 span.question {
