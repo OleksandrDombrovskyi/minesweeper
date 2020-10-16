@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "27736c8370c479bc63cc05682c72b462",
+    "revision": "b8750897bdaa068aa0437705a17919ad",
     "url": "/sapper/index.html"
   },
   {
-    "revision": "ccd25e309324e2bfde61",
-    "url": "/sapper/static/css/main.be152251.chunk.css"
+    "revision": "f90e950f34ed1f3fdcdf",
+    "url": "/sapper/static/css/main.b1a87c4d.chunk.css"
   },
   {
     "revision": "1536b737dcac9c659686",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sapper/static/js/2.549ff282.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ccd25e309324e2bfde61",
-    "url": "/sapper/static/js/main.c333f427.chunk.js"
+    "revision": "f90e950f34ed1f3fdcdf",
+    "url": "/sapper/static/js/main.310a92d5.chunk.js"
   },
   {
     "revision": "78897189c700bbe0a312",
