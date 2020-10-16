@@ -9,8 +9,8 @@ img.smile_image:active {
     padding: 3px;
 }
 
-.counter, .timer {
-    width: 20%;
+.counter, .smile, .timer {
+    width: 110px;
 }
 
 .header {
