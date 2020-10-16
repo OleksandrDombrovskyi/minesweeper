@@ -5,6 +5,11 @@ span.bomb_amount {
     left: 0;
 }
 
+div.bomb_amount_container {
+    display: inline-block;
+    width: 14pt;
+}
+
 div.image_container {
     display: inline-block;
     overflow: hidden;
