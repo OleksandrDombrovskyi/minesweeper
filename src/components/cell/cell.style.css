@@ -14,9 +14,17 @@ rect.failedCell {
     fill: red;
 }
 
-text {
+svg {
+    position: relative;
+}
+
+span {
     font-size: 18pt;
     font-family: Verdana, serif;
+    font-weight: 500;
+    position: relative;
+    top: -35px;
+    cursor: default;
 }
 
 .img-overlay-svg {
@@ -27,4 +35,40 @@ text {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+img.flag {
+    position: relative;
+    top: -32px;
+    left: -2px;
+}
+
+span.number_1 {
+    color: blue;
+}
+
+span.number_2 {
+    color: red;
+}
+
+span.number_3 {
+    color: green;
+}
+
+span.number_4 {
+    color: #320735;
+}
+
+span.number_5 {
+    color: #1e0435;
+}
+
+span.number_6 {
+    color: #350103;
+}
+
+span.question {
+    color: darkblue;
+    position: relative;
+    left: -1px;
 }

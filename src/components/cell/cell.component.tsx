@@ -45,7 +45,8 @@ const GridCell = (props: CellProps) => {
     console.log("Render cell");
 
     return (
-        <div className="gridCell" onClick={onCellClick(position, dispatch)} onContextMenu={onCellRightClick(position, dispatch)}>
+        <div className="gridCell" onClick={onCellClick(position, dispatch)}
+             onContextMenu={onCellRightClick(position, dispatch)}>
             {
                 getCellElement(state, number, isFailed)
             }
@@ -96,10 +97,13 @@ function getInitialCellElement() {
 
 function getQuestionedCellElement() {
     return (
-        <svg width="33" height="33">
-            <rect className="initial" width="30" height="30"/>
-            <text x="8" y="23">?</text>
-        </svg>
+        <div>
+            <svg width="33" height="33">
+                <rect className="initial" width="30" height="30"/>
+            </svg>
+            <span className="question">?</span>
+        </div>
+
     );
 }
 
@@ -109,7 +113,7 @@ function getFlaggedCellElement() {
             <svg className="cell-sign" width="33" height="33">
                 <rect className="initial" width="30" height="30"/>
             </svg>
-            <img className="cell-sign" width="33" height="33" src="flag.svg" alt="123"/>
+            <img className="cell-sign flag" width="22" height="22" src="flag.png" alt="123"/>
         </div>
     );
 }
@@ -127,10 +131,12 @@ function getBombCellElement(isFailed: boolean) {
 
 function getNumberCellElement(number: number) {
     return (
-        <svg width="33" height="33">
-            <rect className="open" width="30" height="30"/>
-            <text x="8" y="23">{number}</text>
-        </svg>
+        <div>
+            <svg width="33" height="33">
+                <rect className="open" width="30" height="30"/>
+            </svg>
+            <span className={"number_" + number}>{number}</span>
+        </div>
     );
 }
 

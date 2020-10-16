@@ -4,7 +4,7 @@ import {CellPosition, CellProps, CellState} from "../components/cell/cell.compon
 export function handleOnClick(cells: CellProps[][], cellPosition: CellPosition) {
     const clickedCell = cells[cellPosition.y][cellPosition.x];
 
-    if (clickedCell.state === CellState.FLAGGED) {
+    if (clickedCell.state === CellState.FLAGGED || clickedCell.state === CellState.QUESTIONED) {
         return;
     }
 
