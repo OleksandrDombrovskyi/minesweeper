@@ -3,7 +3,12 @@ import GridCell, {CellProps} from "../cell/cell.component";
 import './grid.style.css';
 import {GameState} from "../../reducers/game/game.reducer";
 import {createStructuredSelector} from "reselect";
-import {selectGameGrid, selectIsGameFailed, selectIsGameWon} from "../../reducers/game/game.selector";
+import {
+    selectGameGrid,
+    selectIsGameFailed,
+    selectIsGameWon,
+    selectIsGridGenerated
+} from "../../reducers/game/game.selector";
 import {AppState} from "../../reducers/rootReducer";
 import {connect, useDispatch} from "react-redux";
 import {ActionTypes} from "../../actions/actions";
@@ -33,7 +38,8 @@ const GridComponent = (props: GameState) => {
 const mapStateToProps = createStructuredSelector<AppState, GameState>({
     grid: selectGameGrid,
     isGameFailed: selectIsGameFailed,
-    isGameWon: selectIsGameWon
+    isGameWon: selectIsGameWon,
+    isGridGenerated: selectIsGridGenerated
 })
 
 export default connect(mapStateToProps)(GridComponent)

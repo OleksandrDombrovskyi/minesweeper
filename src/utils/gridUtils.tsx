@@ -1,8 +1,8 @@
 import {Grid} from "../reducers/game/game.reducer";
 import {CellPosition, CellProps, CellState} from "../components/cell/cell.component";
 
-export function handleOnClick(grid: Grid, cellPosition: CellPosition) {
-    const clickedCell = grid.cells[cellPosition.y][cellPosition.x];
+export function handleOnClick(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
 
     if (clickedCell.state === CellState.FLAGGED) {
         return;
@@ -12,7 +12,7 @@ export function handleOnClick(grid: Grid, cellPosition: CellPosition) {
         clickedCell.isFailed = true;
     }
 
-    openCell(grid, clickedCell.position)
+    openCell(cells, clickedCell.position)
 }
 
 export function openAllBombs(grid: Grid): void {
@@ -29,12 +29,15 @@ export function isAllCellsOpened(cells: Array<Array<CellProps>>) {
         .every(cell => cell.state === CellState.OPEN)
 }
 
-function openCell(grid: Grid, cellPosition: CellPosition) {
-    if (isPositionOutOfBound(grid, cellPosition)) {
+function openCell(cells: CellProps[][], cellPosition: CellPosition) {
+    if (isPositionOutOfBound(cells, cellPosition)) {
         return;
     }
 
-    const cell = grid.cells[cellPosition.y][cellPosition.x];
+    const cell = cells[cellPosition.y][cellPosition.x];
+    if (cell.state === CellState.OPEN) {
+        return; // to avoid looping on neighbouring empty cells
+    }
     cell.state = CellState.OPEN;
 
     // open all cells around
@@ -45,13 +48,13 @@ function openCell(grid: Grid, cellPosition: CellPosition) {
                     continue;
                 }
 
-                openCell(grid, {x: i, y: j})
+                openCell(cells, {x: i, y: j})
             }
         }
     }
 }
 
-function isPositionOutOfBound(grid: Grid, cellPosition: CellPosition) {
+export function isPositionOutOfBound(grid: Array<Array<CellProps>>, cellPosition: CellPosition) {
     return cellPosition.x < 0 || cellPosition.y < 0
-        || cellPosition.x >= grid.cells.length || cellPosition.y >= grid.cells[0].length;
+        || cellPosition.x >= grid.length || cellPosition.y >= grid[0].length;
 }

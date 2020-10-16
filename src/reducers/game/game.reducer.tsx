@@ -1,6 +1,7 @@
 import {Action, ActionTypes} from "../../actions/actions";
-import {CellPosition, CellProps, CellState} from "../../components/cell/cell.component";
+import {CellPosition, CellProps} from "../../components/cell/cell.component";
 import {handleOnClick, isAllCellsOpened, openAllBombs} from "../../utils/gridUtils";
+import {generatedDefaultGrid, generateGrid} from "../../utils/gridGeneratorUtils";
 
 export interface Grid {
     cells: Array<Array<CellProps>>
@@ -9,21 +10,16 @@ export interface Grid {
 export interface GameState {
     isGameWon: boolean;
     isGameFailed: boolean
+    isGridGenerated: boolean;
     grid: Grid
 }
 
 export const INITIAL_STATE: GameState = {
     isGameWon: false,
     isGameFailed: false,
+    isGridGenerated: false,
     grid: {
-        cells: [
-            [{position: {x: 0, y: 0}, number: 2, state: CellState.INITIAL, isFailed: false}, {position: {x: 1, y: 0}, number: -1, state: CellState.INITIAL, isFailed: false}, {position: {x: 2, y: 0}, number: 1, state: CellState.INITIAL, isFailed: false}],
-            [{position: {x: 0, y: 1}, number: -1, state: CellState.FLAGGED, isFailed: false}, {position: {x: 1, y: 1}, number: 2, state: CellState.INITIAL, isFailed: false}, {position: {x: 2, y: 1}, number: 1, state: CellState.INITIAL, isFailed: false}],
-            [{position: {x: 0, y: 2}, number: 1, state: CellState.INITIAL, isFailed: false}, {position: {x: 1, y: 2}, number: 1, state: CellState.INITIAL, isFailed: false}, {position: {x: 2, y: 2}, number: 0, state: CellState.INITIAL, isFailed: false}]
-        ]
-        // cells: [
-        //     [{position: {x: 0, y: 0}, number: -1, state: CellState.FLAGGED}]
-        // ]
+        cells: generatedDefaultGrid()
     }
 }
 
@@ -32,10 +28,21 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
         case ActionTypes.startGame:
             return action.payload;
         case ActionTypes.cellClicked:
+            let generatedGrid;
+
+            if (!state.isGridGenerated) {
+                generatedGrid = generateGrid(action.payload, 10, 10);
+                state.isGridGenerated = true;
+            } else {
+                generatedGrid = state.grid.cells;
+            }
+
             return {
                 ...state,
-                grid: getNewGrid(state.grid, action.payload),
-                isGameWon: isGameWon(state.grid)
+                grid: {
+                    cells: rerenderGridOnClick(generatedGrid, action.payload)
+                },
+                isGameWon: isGameWon(generatedGrid)
             }
         case ActionTypes.cellClickFailed:
             return {
@@ -53,8 +60,8 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
     }
 }
 
-function isGameWon(grid: Grid) {
-    return isAllCellsOpened(grid.cells);
+function isGameWon(cells: CellProps[][]) {
+    return isAllCellsOpened(cells);
 }
 
 function openAllBombsGrid(grid: Grid) {
@@ -62,7 +69,7 @@ function openAllBombsGrid(grid: Grid) {
     return grid;
 }
 
-function getNewGrid(currentGrid: Grid, cellPosition: CellPosition) {
-    handleOnClick(currentGrid, cellPosition);
-    return currentGrid;
+function rerenderGridOnClick(cells: CellProps[][], cellPosition: CellPosition) {
+    handleOnClick(cells, cellPosition);
+    return cells;
 }

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectIsGameFailed, selectIsGameWon} from "../../reducers/game/game.selector";
 import "./header.style.css";
 import {Action, ActionTypes} from "../../actions/actions";
-import {CellState} from "../cell/cell.component";
+import {generatedDefaultGrid} from "../../utils/gridGeneratorUtils";
 
 export const Header = () => {
     const isGameWon = useSelector(selectIsGameWon)
@@ -25,18 +25,14 @@ export const Header = () => {
 }
 
 function startGame(dispatch: Dispatch<Action>) {
-    //TODO: replace with grid generator (hardcoded to make cells to rerender)
     return () => dispatch({
         type: ActionTypes.startGame,
         payload: {
             isGameWon: false,
             isGameFailed: false,
+            isGridGenerated: false,
             grid: {
-                cells: [
-                    [{position: {x: 0, y: 0}, number: 2, state: CellState.INITIAL, isFailed: false}, {position: {x: 1, y: 0}, number: -1, state: CellState.INITIAL, isFailed: false}, {position: {x: 2, y: 0}, number: 1, state: CellState.INITIAL, isFailed: false}],
-                    [{position: {x: 0, y: 1}, number: -1, state: CellState.FLAGGED, isFailed: false}, {position: {x: 1, y: 1}, number: 2, state: CellState.INITIAL, isFailed: false}, {position: {x: 2, y: 1}, number: 1, state: CellState.INITIAL, isFailed: false}],
-                    [{position: {x: 0, y: 2}, number: 1, state: CellState.INITIAL, isFailed: false}, {position: {x: 1, y: 2}, number: 1, state: CellState.INITIAL, isFailed: false}, {position: {x: 2, y: 2}, number: 0, state: CellState.INITIAL, isFailed: false}]
-                ]
+                cells: generatedDefaultGrid()
             }
         }})
 }

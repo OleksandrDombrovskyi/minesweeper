@@ -20,6 +20,11 @@ export const selectIsGameWon = createSelector<AppState, GameState, boolean>(
     (gameState: GameState) => gameState.isGameWon
 )
 
+export const selectIsGridGenerated = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isGridGenerated
+)
+
 export const selectGameGridBombs = createSelector<AppState, Grid, CellProps[][]>(
     [selectGameGrid],
     (grid: Grid) => grid.cells

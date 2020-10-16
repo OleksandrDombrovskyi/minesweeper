@@ -17,11 +17,18 @@ export interface CellPosition {
     y: number;
 }
 
-export interface CellProps {
+export class CellProps {
     position: CellPosition;
     number: number;
     state: CellState;
     isFailed: boolean;
+
+    constructor(position: CellPosition, number: number) {
+        this.position = position;
+        this.number = number;
+        this.state = CellState.INITIAL;
+        this.isFailed = false;
+    }
 }
 
 const GridCell = (props: CellProps) => {
