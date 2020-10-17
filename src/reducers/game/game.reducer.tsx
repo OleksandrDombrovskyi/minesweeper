@@ -3,6 +3,7 @@ import {CellPosition, CellProps} from "../../components/cell/cell.component";
 import {
     handleOnClick,
     handleOnDragNDroppedFlag,
+    handleOnDragNDroppedRemoveFlag,
     handleOnRightClick,
     isAllCellsOpened,
     openAllBombs
@@ -79,7 +80,7 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
             return {
                 ...state,
                 grid: {
-                    cells: rerenderGridOnDragNDroppedFlag(state.grid.cells, action.payload),
+                    cells: rerenderGridOnDragNDroppedFlag(state.grid.cells, action.payload.cellToAddFlag, action.payload.cellToRemoveFlag),
                 }
             }
         default:
@@ -87,8 +88,13 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
     }
 }
 
-function rerenderGridOnDragNDroppedFlag(cells: Array<Array<CellProps>>, position: CellPosition): Array<Array<CellProps>> {
-    handleOnDragNDroppedFlag(cells, position);
+function rerenderGridOnDragNDroppedFlag(cells: Array<Array<CellProps>>, cellToAddFlag?: CellPosition, cellToRemoveFlag?: CellPosition): Array<Array<CellProps>> {
+    if (cellToRemoveFlag) {
+        handleOnDragNDroppedRemoveFlag(cells, cellToRemoveFlag);
+    }
+    if (cellToAddFlag) {
+        handleOnDragNDroppedFlag(cells, cellToAddFlag);
+    }
     return cells;
 }
 

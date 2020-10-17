@@ -4,6 +4,7 @@ import {connect, useDispatch} from "react-redux";
 import {Action, ActionTypes} from "../../actions/actions";
 import {AppState} from "../../reducers/rootReducer";
 import {selectCellIsFailed, selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
+import {dragNDropFlagOnGrid} from "../../utils/dragNDropUtils";
 
 export enum CellState {
     INITIAL,
@@ -46,7 +47,7 @@ const GridCell = (props: CellProps) => {
         <div id={props.position.x + "_" + props.position.y} className="gridCell" onClick={onCellClick(position, dispatch)}
              onContextMenu={onCellRightClick(position, dispatch)}>
             {
-                getCellElement(state, number, isFailed)
+                getCellElement(state, number, isFailed, dispatch)
             }
         </div>
     );
@@ -66,7 +67,7 @@ function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {
     };
 }
 
-function getCellElement(state: CellState, number: number, isFailed: boolean) {
+function getCellElement(state: CellState, number: number, isFailed: boolean, dispatch: Dispatch<any>) {
     switch (state) {
         case CellState.INITIAL:
             return getInitialCellElement();
@@ -79,7 +80,7 @@ function getCellElement(state: CellState, number: number, isFailed: boolean) {
                 return getEmptyCellElement();
             }
         case CellState.FLAGGED:
-            return getFlaggedCellElement();
+            return getFlaggedCellElement(dispatch);
         case CellState.QUESTIONED:
             return getQuestionedCellElement();
     }
@@ -105,13 +106,13 @@ function getQuestionedCellElement() {
     );
 }
 
-function getFlaggedCellElement() {
+function getFlaggedCellElement(dispatch: React.Dispatch<any>) {
     return (
         <div className="img-overlay-svg">
             <svg className="cell-sign" width="33" height="33">
                 <rect className="initial" width="30" height="30"/>
             </svg>
-            <img className="cell-sign flag" width="22" height="22" src="flag.png" alt="123"/>
+            <img className="cell-sign flag" width="22" height="22" src="flag.png" alt="123" onMouseDown={dragNDropFlagOnGrid(dispatch)}/>
         </div>
     );
 }

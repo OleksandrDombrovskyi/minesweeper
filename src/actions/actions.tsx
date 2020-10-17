@@ -43,7 +43,10 @@ export interface IncrementTime {
 
 export interface DragNDroppedFlag {
     type: ActionTypes.dragNDroppedFlag,
-    payload: CellPosition
+    payload: {
+        cellToAddFlag?: CellPosition,
+        cellToRemoveFlag?: CellPosition
+    }
 }
 
 export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime | DragNDroppedFlag;

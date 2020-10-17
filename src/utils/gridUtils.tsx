@@ -30,9 +30,16 @@ export function handleOnRightClick(cells: CellProps[][], cellPosition: CellPosit
 }
 
 export function handleOnDragNDroppedFlag(cells: CellProps[][], cellPosition: CellPosition) {
-    const clickedCell = cells[cellPosition.y][cellPosition.x];
-    if (clickedCell.state === CellState.INITIAL || CellState.QUESTIONED) {
-        clickedCell.state = CellState.FLAGGED;
+    const droppedCell = cells[cellPosition.y][cellPosition.x];
+    if (droppedCell.state === CellState.INITIAL || droppedCell.state === CellState.QUESTIONED) {
+        droppedCell.state = CellState.FLAGGED;
+    }
+}
+
+export function handleOnDragNDroppedRemoveFlag(cells: CellProps[][], cellPosition: CellPosition) {
+    const removeFlagCell = cells[cellPosition.y][cellPosition.x];
+    if (removeFlagCell.state !== CellState.OPEN) {
+        removeFlagCell.state = CellState.INITIAL;
     }
 }
 
