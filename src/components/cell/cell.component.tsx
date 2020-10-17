@@ -43,7 +43,7 @@ const GridCell = (props: CellProps) => {
     });
 
     return (
-        <div className="gridCell" onClick={onCellClick(position, dispatch)}
+        <div id={props.position.x + "_" + props.position.y} className="gridCell" onClick={onCellClick(position, dispatch)}
              onContextMenu={onCellRightClick(position, dispatch)}>
             {
                 getCellElement(state, number, isFailed)

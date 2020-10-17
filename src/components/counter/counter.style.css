@@ -13,13 +13,13 @@ div.bomb_amount_container {
 div.image_container {
     display: inline-block;
     overflow: hidden;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
 }
 
 img.bomb_image {
     position: relative;
-    left: -5px;
-    width: 60px;
-    height: 60px;
+    left: -4px;
+    width: 50px;
+    height: 50px;
 }

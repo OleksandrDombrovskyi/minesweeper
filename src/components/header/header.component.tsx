@@ -11,6 +11,7 @@ import {Action, ActionTypes} from "../../actions/actions";
 import {generatedDefaultGrid} from "../../utils/gridGeneratorUtils";
 import {Counter} from "../counter/counter.component";
 import {Timer} from "../timer/timer.component";
+import {Flags} from "../flags/flags.component";
 
 export const Header = () => {
     const isGameWon = useSelector(selectIsGameWon)
@@ -24,6 +25,9 @@ export const Header = () => {
 
     return (
         <div className="header">
+            <div className="flags">
+                <Flags/>
+            </div>
             <div className="counter">
                 <Counter/>
             </div>

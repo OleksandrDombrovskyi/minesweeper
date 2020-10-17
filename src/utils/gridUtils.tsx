@@ -29,6 +29,13 @@ export function handleOnRightClick(cells: CellProps[][], cellPosition: CellPosit
     }
 }
 
+export function handleOnDragNDroppedFlag(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
+    if (clickedCell.state === CellState.INITIAL || CellState.QUESTIONED) {
+        clickedCell.state = CellState.FLAGGED;
+    }
+}
+
 export function openAllBombs(grid: Grid): void {
     grid.cells.forEach(cellArray => cellArray.forEach(cell => {
         if (cell.number === -1 && cell.state !== CellState.FLAGGED) {

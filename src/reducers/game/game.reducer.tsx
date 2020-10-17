@@ -1,6 +1,12 @@
 import {Action, ActionTypes} from "../../actions/actions";
 import {CellPosition, CellProps} from "../../components/cell/cell.component";
-import {handleOnClick, handleOnRightClick, isAllCellsOpened, openAllBombs} from "../../utils/gridUtils";
+import {
+    handleOnClick,
+    handleOnDragNDroppedFlag,
+    handleOnRightClick,
+    isAllCellsOpened,
+    openAllBombs
+} from "../../utils/gridUtils";
 import {generatedDefaultGrid, generateGrid} from "../../utils/gridGeneratorUtils";
 
 export interface Grid {
@@ -69,9 +75,21 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 ...state,
                 gameTime: isGameInProcess(state) ? state.gameTime + 1 : state.gameTime,
             }
+        case ActionTypes.dragNDroppedFlag:
+            return {
+                ...state,
+                grid: {
+                    cells: rerenderGridOnDragNDroppedFlag(state.grid.cells, action.payload),
+                }
+            }
         default:
             return INITIAL_STATE;
     }
+}
+
+function rerenderGridOnDragNDroppedFlag(cells: Array<Array<CellProps>>, position: CellPosition): Array<Array<CellProps>> {
+    handleOnDragNDroppedFlag(cells, position);
+    return cells;
 }
 
 function isGameInProcess(state: GameState) {
