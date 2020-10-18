@@ -1,17 +1,16 @@
 import {CellPosition, CellProps} from "../components/cell/cell.component";
 import {isPositionOutOfBound} from "./gridUtils";
 
-export function generatedDefaultGrid(): Array<Array<CellProps>> {
-    return generateGrid({x: 0, y: 0}, 10, 10);
-}
-
-export function generateGrid(position: CellPosition, width: number, height: number): Array<Array<CellProps>> {
+export function generateDefaultGrid(width: number, height: number): Array<Array<CellProps>> {
     let booleanArray = generateBooleanArray(width, height);
     let shuffledBooleanArray = shuffle(booleanArray);
     let booleanGrid = convertArrayIntoGrid(shuffledBooleanArray, width, height);
     let numberGrid = convertBooleanGridToNumber(booleanGrid);
-    let cellPropsGridWithZeros = convertNumbersIntoCellProps(numberGrid);
-    let gridWithEmptyClickedCell = moveBombsFromClickedCellArea(position, cellPropsGridWithZeros)
+    return convertNumbersIntoCellProps(numberGrid);
+}
+
+export function moveBombsFromClickedCellAndCalculateGrid(gridCells: Array<Array<CellProps>>, position: CellPosition): Array<Array<CellProps>> {
+    let gridWithEmptyClickedCell = moveBombsFromClickedCellArea(position, gridCells)
     return calculateCellBombNumbers(gridWithEmptyClickedCell);
 }
 

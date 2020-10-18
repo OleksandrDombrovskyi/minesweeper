@@ -8,12 +8,13 @@ import {
 } from "../../reducers/game/game.selector";
 import "./header.style.css";
 import {Action, ActionTypes} from "../../actions/actions";
-import {generatedDefaultGrid} from "../../utils/gridGeneratorUtils";
+import {generateDefaultGrid} from "../../utils/gridGeneratorUtils";
 import {Counter} from "../counter/counter.component";
 import {Timer} from "../timer/timer.component";
 import {Flags} from "../flags/flags.component";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
 import {FlagsMobile} from "../flagsmobile/flags-mobile.component";
+import {INITIAL_STATE} from "../../reducers/game/game.reducer";
 
 export const Header = () => {
     const isGameWon = useSelector(selectIsGameWon)
@@ -53,14 +54,9 @@ function startGame(dispatch: Dispatch<Action>) {
     return () => dispatch({
         type: ActionTypes.startGame,
         payload: {
-            isGameWon: false,
-            isGameFailed: false,
-            isGridGenerated: false,
-            gameTime: 0,
-            isFlagSelected: false,
-            isFlagCrossedSelected: false,
+            ...INITIAL_STATE,
             grid: {
-                cells: generatedDefaultGrid()
+                cells: generateDefaultGrid(10, 10)
             }
         }
     })

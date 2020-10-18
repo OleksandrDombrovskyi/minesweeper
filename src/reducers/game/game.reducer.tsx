@@ -9,7 +9,7 @@ import {
     isAllCellsOpened,
     openAllBombs, removeFlag
 } from "../../utils/gridUtils";
-import {generatedDefaultGrid, generateGrid} from "../../utils/gridGeneratorUtils";
+import {generateDefaultGrid, moveBombsFromClickedCellAndCalculateGrid} from "../../utils/gridGeneratorUtils";
 
 export interface Grid {
     cells: Array<Array<CellProps>>
@@ -18,7 +18,7 @@ export interface Grid {
 export interface GameState {
     isGameWon: boolean;
     isGameFailed: boolean
-    isGridGenerated: boolean;
+    isGridCalculated: boolean;
     gameTime: number;
     isFlagSelected: boolean;
     isFlagCrossedSelected: boolean;
@@ -28,12 +28,12 @@ export interface GameState {
 export const INITIAL_STATE: GameState = {
     isGameWon: false,
     isGameFailed: false,
-    isGridGenerated: false,
+    isGridCalculated: false,
     gameTime: 0,
     isFlagSelected: false,
     isFlagCrossedSelected: false,
     grid: {
-        cells: generatedDefaultGrid()
+        cells: generateDefaultGrid(10, 10)
     }
 }
 
@@ -42,21 +42,13 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
         case ActionTypes.startGame:
             return action.payload;
         case ActionTypes.cellClicked:
-            let generatedGrid;
-
-            if (!state.isGridGenerated) {
-                generatedGrid = generateGrid(action.payload, 10, 10);
-                state.isGridGenerated = true;
-            } else {
-                generatedGrid = state.grid.cells;
-            }
-
+            let cells = rerenderGridOnClick(state, action.payload);
             return {
                 ...state,
                 grid: {
-                    cells: rerenderGridOnClick(generatedGrid, action.payload, state.isFlagSelected, state.isFlagCrossedSelected)
+                    cells: cells
                 },
-                isGameWon: isGameWon(generatedGrid),
+                isGameWon: isGameWon(cells),
                 isFlagSelected: false,
                 isFlagCrossedSelected: false
             }
@@ -116,7 +108,7 @@ function rerenderGridOnDragNDroppedFlag(cells: Array<Array<CellProps>>, cellToAd
 }
 
 function isGameInProcess(state: GameState) {
-    return state.isGridGenerated && !state.isGameFailed && !state.isGameWon;
+    return state.isGridCalculated && !state.isGameFailed && !state.isGameWon;
 }
 
 function isGameWon(cells: CellProps[][]) {
@@ -128,18 +120,24 @@ function openAllBombsGrid(grid: Grid) {
     return grid;
 }
 
-function rerenderGridOnClick(cells: CellProps[][], cellPosition: CellPosition, isFlagSelected: boolean, isFlagCrossedSelected: boolean) {
-    if (isFlagSelected) {
-        addFlag(cells, cellPosition)
-    } else if (isFlagCrossedSelected) {
-        removeFlag(cells, cellPosition)
+function rerenderGridOnClick(state: GameState, cellPosition: CellPosition): CellProps[][] {
+    let gridCells = state.grid.cells;
+
+    if (state.isFlagSelected) {
+        addFlag(gridCells, cellPosition)
+    } else if (state.isFlagCrossedSelected) {
+        removeFlag(gridCells, cellPosition)
     } else {
-        handleOnClick(cells, cellPosition);
+        if (!state.isGridCalculated) {
+            gridCells = moveBombsFromClickedCellAndCalculateGrid(gridCells, cellPosition);
+            state.isGridCalculated = true;
+        }
+        handleOnClick(gridCells, cellPosition);
     }
-    return cells;
+    return gridCells;
 }
 
-function rerenderGridOnRightClick(cells: CellProps[][], cellPosition: CellPosition): CellProps[][]  {
+function rerenderGridOnRightClick(cells: CellProps[][], cellPosition: CellPosition): CellProps[][] {
     handleOnRightClick(cells, cellPosition);
     return cells;
 }

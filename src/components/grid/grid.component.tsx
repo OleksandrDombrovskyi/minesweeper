@@ -38,7 +38,7 @@ const mapStateToProps = createStructuredSelector<AppState, GameState>({
     grid: selectGameGrid,
     isGameFailed: selectIsGameFailed,
     isGameWon: selectIsGameWon,
-    isGridGenerated: selectIsGridGenerated,
+    isGridCalculated: selectIsGridGenerated,
     gameTime: selectGameTime,
     isFlagSelected: selectIsFlagSelected,
     isFlagCrossedSelected: selectIsCrossedFlagSelected

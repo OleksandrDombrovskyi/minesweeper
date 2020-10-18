@@ -4,7 +4,9 @@ import {
     convertArrayIntoGrid,
     convertBooleanGridToNumber,
     convertNumbersIntoCellProps,
-    generateBooleanArray, generateGrid, moveBombsFromClickedCellArea
+    generateBooleanArray,
+    generateDefaultGrid,
+    moveBombsFromClickedCellArea
 } from "../gridGeneratorUtils";
 import * as assert from "assert";
 import {CellProps} from "../../components/cell/cell.component";
@@ -85,7 +87,7 @@ describe('should generate grid', function () {
     })
 
     it('should generate 50x100 grid', function () {
-        const grid = generateGrid({x: 0, y: 0}, 50, 100);
+        const grid = generateDefaultGrid(50, 100);
 
         expect(grid.length).toEqual(100);
         expect(grid[0].length).toEqual(50);
