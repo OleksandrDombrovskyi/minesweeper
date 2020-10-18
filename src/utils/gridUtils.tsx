@@ -15,6 +15,22 @@ export function handleOnClick(cells: CellProps[][], cellPosition: CellPosition) 
     openCell(cells, clickedCell.position)
 }
 
+export function addFlag(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
+
+    if (clickedCell.state !== CellState.OPEN) {
+        clickedCell.state = CellState.FLAGGED;
+    }
+}
+
+export function removeFlag(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
+
+    if (clickedCell.state === CellState.FLAGGED) {
+        clickedCell.state = CellState.INITIAL;
+    }
+}
+
 export function handleOnRightClick(cells: CellProps[][], cellPosition: CellPosition) {
     const clickedCell = cells[cellPosition.y][cellPosition.x];
     switch (clickedCell.state) {

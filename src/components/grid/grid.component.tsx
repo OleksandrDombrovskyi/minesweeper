@@ -4,7 +4,7 @@ import './grid.style.css';
 import {GameState} from "../../reducers/game/game.reducer";
 import {createStructuredSelector} from "reselect";
 import {
-    selectGameGrid, selectGameTime,
+    selectGameGrid, selectGameTime, selectIsCrossedFlagSelected, selectIsFlagSelected,
     selectIsGameFailed,
     selectIsGameWon,
     selectIsGridGenerated
@@ -39,7 +39,9 @@ const mapStateToProps = createStructuredSelector<AppState, GameState>({
     isGameFailed: selectIsGameFailed,
     isGameWon: selectIsGameWon,
     isGridGenerated: selectIsGridGenerated,
-    gameTime: selectGameTime
+    gameTime: selectGameTime,
+    isFlagSelected: selectIsFlagSelected,
+    isFlagCrossedSelected: selectIsCrossedFlagSelected
 })
 
 export default connect(mapStateToProps)(GridComponent)

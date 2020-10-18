@@ -17,8 +17,8 @@ img.smile_image:active {
     width: 130px;
 }
 
-.counter, .flags {
-    width: 65px;
+.counter, .flags, .flags-mobile {
+    width: 66px;
 }
 
 .header {

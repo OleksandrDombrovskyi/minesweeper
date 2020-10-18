@@ -1,0 +1,18 @@
+.flag_div, .flag_crossed_div {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 33px;
+}
+
+.flag_div img {
+    position: absolute;
+    top: 8px;
+    left: 4px;
+}
+
+.flag_crossed_div img {
+    position: absolute;
+    top: 8px;
+    left: 4px;
+}

@@ -64,3 +64,13 @@ export const selectGameTime = createSelector<AppState, GameState, number>(
     [selectGameState],
     (gameState: GameState) => gameState.gameTime
 )
+
+export const selectIsFlagSelected = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isFlagSelected
+)
+
+export const selectIsCrossedFlagSelected = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isFlagCrossedSelected
+)

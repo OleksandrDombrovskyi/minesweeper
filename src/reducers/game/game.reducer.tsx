@@ -1,12 +1,13 @@
 import {Action, ActionTypes} from "../../actions/actions";
 import {CellPosition, CellProps} from "../../components/cell/cell.component";
 import {
+    addFlag,
     handleOnClick,
     handleOnDragNDroppedFlag,
     handleOnDragNDroppedRemoveFlag,
     handleOnRightClick,
     isAllCellsOpened,
-    openAllBombs
+    openAllBombs, removeFlag
 } from "../../utils/gridUtils";
 import {generatedDefaultGrid, generateGrid} from "../../utils/gridGeneratorUtils";
 
@@ -19,6 +20,8 @@ export interface GameState {
     isGameFailed: boolean
     isGridGenerated: boolean;
     gameTime: number;
+    isFlagSelected: boolean;
+    isFlagCrossedSelected: boolean;
     grid: Grid
 }
 
@@ -27,6 +30,8 @@ export const INITIAL_STATE: GameState = {
     isGameFailed: false,
     isGridGenerated: false,
     gameTime: 0,
+    isFlagSelected: false,
+    isFlagCrossedSelected: false,
     grid: {
         cells: generatedDefaultGrid()
     }
@@ -49,9 +54,11 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
             return {
                 ...state,
                 grid: {
-                    cells: rerenderGridOnClick(generatedGrid, action.payload)
+                    cells: rerenderGridOnClick(generatedGrid, action.payload, state.isFlagSelected, state.isFlagCrossedSelected)
                 },
-                isGameWon: isGameWon(generatedGrid)
+                isGameWon: isGameWon(generatedGrid),
+                isFlagSelected: false,
+                isFlagCrossedSelected: false
             }
         case ActionTypes.cellClickFailed:
             return {
@@ -83,6 +90,16 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                     cells: rerenderGridOnDragNDroppedFlag(state.grid.cells, action.payload.cellToAddFlag, action.payload.cellToRemoveFlag),
                 }
             }
+        case ActionTypes.selectFlag:
+            return {
+                ...state,
+                isFlagSelected: !state.isFlagSelected
+            }
+        case ActionTypes.selectCrossedFlag:
+            return {
+                ...state,
+                isFlagCrossedSelected: !state.isFlagCrossedSelected
+            }
         default:
             return INITIAL_STATE;
     }
@@ -111,8 +128,14 @@ function openAllBombsGrid(grid: Grid) {
     return grid;
 }
 
-function rerenderGridOnClick(cells: CellProps[][], cellPosition: CellPosition) {
-    handleOnClick(cells, cellPosition);
+function rerenderGridOnClick(cells: CellProps[][], cellPosition: CellPosition, isFlagSelected: boolean, isFlagCrossedSelected: boolean) {
+    if (isFlagSelected) {
+        addFlag(cells, cellPosition)
+    } else if (isFlagCrossedSelected) {
+        removeFlag(cells, cellPosition)
+    } else {
+        handleOnClick(cells, cellPosition);
+    }
     return cells;
 }
 

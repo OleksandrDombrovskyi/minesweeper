@@ -12,6 +12,8 @@ import {generatedDefaultGrid} from "../../utils/gridGeneratorUtils";
 import {Counter} from "../counter/counter.component";
 import {Timer} from "../timer/timer.component";
 import {Flags} from "../flags/flags.component";
+import {isMobileDevice} from "../../utils/detectmobilebrowser";
+import {FlagsMobile} from "../flagsmobile/flags-mobile.component";
 
 export const Header = () => {
     const isGameWon = useSelector(selectIsGameWon)
@@ -25,9 +27,15 @@ export const Header = () => {
 
     return (
         <div className="header">
-            <div className="flags">
-                <Flags/>
-            </div>
+            {
+                isMobileDevice()
+                    ? <div className="flags-mobile">
+                        <FlagsMobile/>
+                    </div>
+                    : <div className="flags">
+                        <Flags/>
+                    </div>
+            }
             <div className="counter">
                 <Counter/>
             </div>
@@ -49,6 +57,8 @@ function startGame(dispatch: Dispatch<Action>) {
             isGameFailed: false,
             isGridGenerated: false,
             gameTime: 0,
+            isFlagSelected: false,
+            isFlagCrossedSelected: false,
             grid: {
                 cells: generatedDefaultGrid()
             }

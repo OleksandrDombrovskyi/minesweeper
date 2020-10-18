@@ -1,10 +1,11 @@
 import {Dispatch, MouseEvent as ReactMouseEvent} from "react";
 import {ActionTypes} from "../actions/actions";
 import {CellPosition} from "../components/cell/cell.component";
+import {isMobileDevice} from "./detectmobilebrowser";
 
 export function dragNDropFlagOnGrid(dispatch: Dispatch<any>) {
     return (event: ReactMouseEvent<HTMLElement>) => {
-        if (event.button !== 0) {
+        if (isMobileDevice() || event.button !== 0) {
             return;
         }
 
