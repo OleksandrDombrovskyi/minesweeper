@@ -13,7 +13,6 @@ import {Counter} from "../counter/counter.component";
 import {Timer} from "../timer/timer.component";
 import {Flags} from "../flags/flags.component";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
-import {FlagsMobile} from "../flagsmobile/flags-mobile.component";
 import {INITIAL_STATE} from "../../reducers/game/game.reducer";
 
 export const Header = () => {
@@ -28,17 +27,16 @@ export const Header = () => {
 
     return (
         <div className="header">
-            {
-                isMobileDevice()
-                    ? <div className="flags-mobile">
-                        <FlagsMobile/>
-                    </div>
-                    : <div className="flags">
+            <div className="flags_and_counter_container">
+                {
+                    !isMobileDevice() &&
+                    <div className="flags">
                         <Flags/>
                     </div>
-            }
-            <div className="counter">
-                <Counter/>
+                }
+                <div className="counter">
+                    <Counter/>
+                </div>
             </div>
             <div className="smile">
                 <img className="smile_image" src={"smiles/" + imageName} alt="fail" onClick={startGame(dispatch)}/>

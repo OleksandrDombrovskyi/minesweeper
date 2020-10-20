@@ -10,15 +10,21 @@ img.smile_image:active {
 }
 
 .smile {
-    width: 70px;
+    width: 67px;
 }
 
-.timer {
-    width: 130px;
+.timer, .flags_and_counter_container {
+    width: 132px;
 }
 
-.counter, .flags, .flags-mobile {
+.counter, .flags {
     width: 66px;
+    display: inline-block;
+}
+
+.flags_and_counter_container {
+    position: relative;
+    justify-content: center;
 }
 
 .header {

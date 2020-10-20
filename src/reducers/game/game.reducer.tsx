@@ -85,11 +85,13 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
         case ActionTypes.selectFlag:
             return {
                 ...state,
+                isFlagCrossedSelected: false,
                 isFlagSelected: !state.isFlagSelected
             }
         case ActionTypes.selectCrossedFlag:
             return {
                 ...state,
+                isFlagSelected: false,
                 isFlagCrossedSelected: !state.isFlagCrossedSelected
             }
         default:

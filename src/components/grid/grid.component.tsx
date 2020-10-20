@@ -4,7 +4,10 @@ import './grid.style.css';
 import {GameState} from "../../reducers/game/game.reducer";
 import {createStructuredSelector} from "reselect";
 import {
-    selectGameGrid, selectGameTime, selectIsCrossedFlagSelected, selectIsFlagSelected,
+    selectGameGrid,
+    selectGameTime,
+    selectIsCrossedFlagSelected,
+    selectIsFlagSelected,
     selectIsGameFailed,
     selectIsGameWon,
     selectIsGridGenerated
