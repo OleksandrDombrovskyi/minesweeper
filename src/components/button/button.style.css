@@ -1,0 +1,23 @@
+rect.initial {
+    fill: #B8B8B8;
+    stroke-width: 3;
+    stroke: #585858;
+}
+
+rect.open {
+    fill: #DCDCDC;
+    stroke-width: 3;
+    stroke: #DCDCDC;
+}
+
+rect.failedCell {
+    fill: red;
+}
+
+svg {
+    position: relative;
+}
+
+.img-overlay-svg {
+    position: relative;
+}

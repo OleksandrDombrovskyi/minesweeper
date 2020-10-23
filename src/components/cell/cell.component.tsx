@@ -5,6 +5,8 @@ import {Action, ActionTypes} from "../../actions/actions";
 import {AppState} from "../../reducers/rootReducer";
 import {selectCellIsFailed, selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
 import {dragNDropFlagOnGrid} from "../../utils/dragNDropUtils";
+import {Button} from "../button/button.component";
+import {SymbolButtonContent} from "../symbol-button-content/symbol-button-content.component";
 
 export enum CellState {
     INITIAL,
@@ -44,11 +46,14 @@ const GridCell = (props: CellProps) => {
     });
 
     return (
-        <div id={props.position.x + "_" + props.position.y} className="gridCell" onClick={onCellClick(position, dispatch)}
+        <div id={props.position.x + "_" + props.position.y} className="gridCell"
+             onClick={onCellClick(position, dispatch)}
              onContextMenu={onCellRightClick(position, dispatch)}>
-            {
-                getCellElement(state, number, isFailed, dispatch)
-            }
+            <Button isPressed={state === CellState.OPEN} isFailed={isFailed}>
+                {
+                    getButtonContent(state, number, isFailed, dispatch)
+                }
+            </Button>
         </div>
     );
 }
@@ -67,83 +72,47 @@ function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {
     };
 }
 
-function getCellElement(state: CellState, number: number, isFailed: boolean, dispatch: Dispatch<any>) {
+function getButtonContent(state: CellState, number: number, isFailed: boolean, dispatch: Dispatch<any>) {
     switch (state) {
         case CellState.INITIAL:
-            return getInitialCellElement();
+            return null;
         case CellState.OPEN:
             if (number === -1) {
-                return getBombCellElement(isFailed);
+                return getBombContent();
             } else if (number > 0) {
-                return getNumberCellElement(number);
+                return getNumberContent(number);
             } else {
-                return getEmptyCellElement();
+                return null;
             }
         case CellState.FLAGGED:
-            return getFlaggedCellElement(dispatch);
+            return getFlagContent(dispatch);
         case CellState.QUESTIONED:
-            return getQuestionedCellElement();
+            return getQuestionContent();
     }
 }
 
-function getInitialCellElement() {
+function getQuestionContent() {
     return (
-        <svg width="33" height="33">
-            <rect className="initial" width="30" height="30"/>
-        </svg>
+        <SymbolButtonContent symbol={"?"} fontSize={18}/>
     );
 }
 
-function getQuestionedCellElement() {
+function getFlagContent(dispatch: React.Dispatch<any>) {
     return (
-        <div>
-            <svg width="33" height="33">
-                <rect className="initial" width="30" height="30"/>
-            </svg>
-            <span className="question">?</span>
-        </div>
-
+        <img className="flag" width="22" height="22" src="flag.png" alt="123"
+             onMouseDown={dragNDropFlagOnGrid(dispatch)}/>
     );
 }
 
-function getFlaggedCellElement(dispatch: React.Dispatch<any>) {
+function getBombContent() {
     return (
-        <div className="img-overlay-svg">
-            <svg className="cell-sign" width="33" height="33">
-                <rect className="initial" width="30" height="30"/>
-            </svg>
-            <img className="cell-sign flag" width="22" height="22" src="flag.png" alt="123" onMouseDown={dragNDropFlagOnGrid(dispatch)}/>
-        </div>
+        <img className="bomb" width="33" height="33" src="bomb.svg" alt="123"/>
     );
 }
 
-function getBombCellElement(isFailed: boolean) {
+function getNumberContent(number: number) {
     return (
-        <div className="img-overlay-svg">
-            <svg width="33" height="33">
-                <rect className={"open" + (isFailed ? " failedCell" : "")} width="30" height="30"/>
-            </svg>
-            <img width="33" height="33" src="bomb.svg" alt="123"/>
-        </div>
-    );
-}
-
-function getNumberCellElement(number: number) {
-    return (
-        <div>
-            <svg width="33" height="33">
-                <rect className="open" width="30" height="30"/>
-            </svg>
-            <span className={"number_" + number}>{number}</span>
-        </div>
-    );
-}
-
-function getEmptyCellElement() {
-    return (
-        <svg width="33" height="33">
-            <rect className="open" width="30" height="30"/>
-        </svg>
+        <SymbolButtonContent symbol={number} fontSize={18}/>
     );
 }
 

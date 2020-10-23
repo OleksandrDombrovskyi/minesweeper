@@ -1,75 +1,12 @@
-rect.initial {
-    fill: #B8B8B8;
-    stroke-width: 3;
-    stroke: #585858;
-}
-
-rect.open {
-    fill: #DCDCDC;
-    stroke-width: 3;
-    stroke: #DCDCDC;
-}
-
-rect.failedCell {
-    fill: red;
-}
-
-svg {
-    position: relative;
-}
-
-.img-overlay-svg {
-    position: relative;
-}
-
-.img-overlay-svg img {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-img.flag {
+.flag {
     position: relative;
     top: -32px;
     left: -2px;
-}
-
-span.question, span[class*="number_"] {
-    font-size: 18pt;
-    font-family: Verdana, serif;
-    font-weight: 500;
-    position: relative;
-    top: -35px;
-    cursor: default;
     user-select: none;
 }
 
-span.question {
-    color: darkblue;
-    position: relative;
-    left: -1px;
-}
-
-span.number_1 {
-    color: blue;
-}
-
-span.number_2 {
-    color: red;
-}
-
-span.number_3 {
-    color: green;
-}
-
-span.number_4 {
-    color: #320735;
-}
-
-span.number_5 {
-    color: #1e0435;
-}
-
-span.number_6 {
-    color: #350103;
+.bomb {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
