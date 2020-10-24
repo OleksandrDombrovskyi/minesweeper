@@ -9,6 +9,8 @@ import {reducers} from "./reducers/rootReducer";
 import logger from 'redux-logger';
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {TouchBackend} from 'react-dnd-touch-backend'
+import {isMobileDevice} from "./utils/detectmobilebrowser";
 
 const middlewares = [];
 
@@ -21,7 +23,7 @@ const store = createStore(reducers, applyMiddleware(...middlewares));
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={isMobileDevice() ? TouchBackend : HTML5Backend}>
                 <App/>
             </DndProvider>
         </Provider>

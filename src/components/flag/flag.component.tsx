@@ -6,6 +6,9 @@ import {SourceType} from "dnd-core";
 import {useDispatch} from "react-redux";
 import {Action, ActionTypes} from "../../actions/actions";
 import {Dispatch} from "redux";
+import {isMobileDevice} from "../../utils/detectmobilebrowser";
+// @ts-ignore
+import {usePreview} from 'react-dnd-preview';
 
 export const DnDTypes = {
     FLAG: 'flag'
@@ -42,8 +45,13 @@ export const FlagImage = (props: FlagProps) => {
 
     return (
         <>
-            <DragPreviewImage connect={preview} src="flag_24x24.png"/>
-            <img ref={drag} width="22" height="22" src="flag_24x24.png" style={{opacity: cellPosition && isDragging ? 0.5 : 1}}
+            {
+                isMobileDevice()
+                    ? <MobilePreviewForTouchEvent/>
+                    : <DragPreviewImage connect={preview} src="flag_24x24.png"/>
+            }
+            <img ref={drag} width="22" height="22" src="flag_24x24.png"
+                 style={{opacity: cellPosition && isDragging ? 0.5 : 1}}
                  alt="123"/>
         </>
     )
@@ -57,3 +65,16 @@ function removeFlagFromCell(dispatch: Dispatch<Action>, cellPosition: CellPositi
         }
     })
 }
+
+const MobilePreviewForTouchEvent = () => {
+    const {display, itemType, item, style} = usePreview();
+    if (!display) {
+        return null;
+    }
+    if (itemType === DnDTypes.FLAG) {
+        return (
+            <img width="50" height="50" src="flag_big.png" alt="123" style={{...style, zIndex: 50}}/>
+        )
+    }
+    return null;
+};

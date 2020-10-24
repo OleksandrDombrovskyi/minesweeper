@@ -12,7 +12,6 @@ import {generateDefaultGrid} from "../../utils/gridGeneratorUtils";
 import {Counter} from "../counter/counter.component";
 import {Timer} from "../timer/timer.component";
 import {Flags} from "../flags/flags.component";
-import {isMobileDevice} from "../../utils/detectmobilebrowser";
 import {INITIAL_STATE} from "../../reducers/game/game.reducer";
 
 export const Header = () => {
@@ -28,12 +27,9 @@ export const Header = () => {
     return (
         <div className="header">
             <div className="flags_and_counter_container">
-                {
-                    !isMobileDevice() &&
-                    <div className="flags">
-                        <Flags/>
-                    </div>
-                }
+                <div className="flags">
+                    <Flags/>
+                </div>
                 <div className="counter">
                     <Counter/>
                 </div>
