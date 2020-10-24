@@ -75,7 +75,7 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 ...state,
                 gameTime: isGameInProcess(state) ? state.gameTime + 1 : state.gameTime,
             }
-        case ActionTypes.dragNDroppedFlag:
+        case ActionTypes.dragNDropFlag:
             return {
                 ...state,
                 grid: {

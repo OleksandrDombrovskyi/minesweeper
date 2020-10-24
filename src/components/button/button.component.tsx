@@ -4,6 +4,7 @@ import './button.style.css';
 export interface ButtonProps {
     isPressed: boolean;
     isFailed?: boolean;
+    isOver?: boolean
 }
 
 export const Button: FunctionComponent<ButtonProps> = (props: PropsWithChildren<ButtonProps>) => {
@@ -18,9 +19,10 @@ export const Button: FunctionComponent<ButtonProps> = (props: PropsWithChildren<
         )
 };
 
-function getClassName({isPressed, isFailed}: ButtonProps) {
+function getClassName({isPressed, isFailed, isOver}: ButtonProps) {
     let isPressedClassName = isPressed ? "open" : "initial";
     let isFailedClassName = isFailed ? "failedCell" : "";
+    let isOverClassName = !isPressed && isOver ? "over" : "";
 
-    return isPressedClassName + " " + isFailedClassName;
+    return isPressedClassName + " " + isFailedClassName + " " + isOverClassName;
 }

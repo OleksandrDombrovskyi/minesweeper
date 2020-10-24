@@ -6,7 +6,8 @@ import {AppState} from "../../reducers/rootReducer";
 import {selectCellIsFailed, selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
 import {Button} from "../button/button.component";
 import {SymbolButtonContent} from "../symbol-button-content/symbol-button-content.component";
-import {FlagImage} from "../flag/flag.component";
+import {FlagImage, DnDTypes, FlagDragObject} from "../flag/flag.component";
+import {useDrop} from "react-dnd";
 
 export enum CellState {
     INITIAL,
@@ -45,15 +46,25 @@ const GridCell = (props: CellProps) => {
         }
     });
 
+    const [{isOver}, drop] = useDrop<FlagDragObject, any, any>({
+        accept: DnDTypes.FLAG,
+        drop: (item: FlagDragObject) => handleDragNDropFlag(item, position, state, dispatch),
+        collect: monitor => ({
+            isOver: monitor.isOver()
+        })
+    });
+
     return (
         <div id={props.position.x + "_" + props.position.y} className="gridCell"
              onClick={onCellClick(position, dispatch)}
              onContextMenu={onCellRightClick(position, dispatch)}>
-            <Button isPressed={state === CellState.OPEN} isFailed={isFailed}>
-                {
-                    getButtonContent(state, number)
-                }
-            </Button>
+            <div ref={drop}>
+                <Button isPressed={state === CellState.OPEN} isFailed={isFailed} isOver={isOver}>
+                    {
+                        getButtonContent(state, number, position)
+                    }
+                </Button>
+            </div>
         </div>
     );
 }
@@ -72,7 +83,7 @@ function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {
     };
 }
 
-function getButtonContent(state: CellState, number: number) {
+function getButtonContent(state: CellState, number: number, position: CellPosition) {
     switch (state) {
         case CellState.INITIAL:
             return null;
@@ -85,7 +96,7 @@ function getButtonContent(state: CellState, number: number) {
                 return null;
             }
         case CellState.FLAGGED:
-            return getFlagContent();
+            return getFlagContent(position);
         case CellState.QUESTIONED:
             return getQuestionContent();
     }
@@ -97,10 +108,10 @@ function getQuestionContent() {
     );
 }
 
-function getFlagContent() {
+function getFlagContent(position: CellPosition) {
     return (
         <div className="flag">
-            <FlagImage/>
+            <FlagImage cellPosition={position}/>
         </div>
     );
 }
@@ -115,6 +126,28 @@ function getNumberContent(number: number) {
     return (
         <SymbolButtonContent symbol={number} fontSize={18}/>
     );
+}
+
+function handleDragNDropFlag(draggedFlag: FlagDragObject, destinationPosition: CellPosition, state: CellState, dispatch: Dispatch<any>) {
+    let flagSourcePosition = draggedFlag.position;
+    if (isTheSameCell(flagSourcePosition, destinationPosition) || state === CellState.OPEN) {
+        return;
+    }
+    removeFlagFromSourceCellAndAddToDestinationCell(dispatch, destinationPosition, flagSourcePosition);
+}
+
+function isTheSameCell(flagPosition: CellPosition | undefined, position: CellPosition) {
+    return flagPosition && ((flagPosition.x === position.x) && (flagPosition.y === position.y));
+}
+
+function removeFlagFromSourceCellAndAddToDestinationCell(dispatch: (value: any) => void, position: CellPosition, flagInitPosition: CellPosition | undefined) {
+    dispatch({
+        type: ActionTypes.dragNDropFlag,
+        payload: {
+            cellToAddFlag: position,
+            cellToRemoveFlag: flagInitPosition
+        }
+    })
 }
 
 const mapStateToProps = (state: AppState, ownProps: CellProps): CellProps => ({

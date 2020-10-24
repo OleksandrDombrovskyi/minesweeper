@@ -14,6 +14,10 @@ rect.failedCell {
     fill: red;
 }
 
+rect.over {
+    fill: #CBCBCB;
+}
+
 svg {
     position: relative;
 }

@@ -7,6 +7,8 @@ import {applyMiddleware, createStore} from "redux";
 import {Provider} from 'react-redux';
 import {reducers} from "./reducers/rootReducer";
 import logger from 'redux-logger';
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 const middlewares = [];
 
@@ -19,7 +21,9 @@ const store = createStore(reducers, applyMiddleware(...middlewares));
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App/>
+            <DndProvider backend={HTML5Backend}>
+                <App/>
+            </DndProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
