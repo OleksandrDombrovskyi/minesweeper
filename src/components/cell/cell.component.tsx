@@ -4,9 +4,9 @@ import {connect, useDispatch} from "react-redux";
 import {Action, ActionTypes} from "../../actions/actions";
 import {AppState} from "../../reducers/rootReducer";
 import {selectCellIsFailed, selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
-import {dragNDropFlagOnGrid} from "../../utils/dragNDropUtils";
 import {Button} from "../button/button.component";
 import {SymbolButtonContent} from "../symbol-button-content/symbol-button-content.component";
+import {FlagImage} from "../flag/flag.component";
 
 export enum CellState {
     INITIAL,
@@ -51,7 +51,7 @@ const GridCell = (props: CellProps) => {
              onContextMenu={onCellRightClick(position, dispatch)}>
             <Button isPressed={state === CellState.OPEN} isFailed={isFailed}>
                 {
-                    getButtonContent(state, number, isFailed, dispatch)
+                    getButtonContent(state, number)
                 }
             </Button>
         </div>
@@ -72,7 +72,7 @@ function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {
     };
 }
 
-function getButtonContent(state: CellState, number: number, isFailed: boolean, dispatch: Dispatch<any>) {
+function getButtonContent(state: CellState, number: number) {
     switch (state) {
         case CellState.INITIAL:
             return null;
@@ -85,7 +85,7 @@ function getButtonContent(state: CellState, number: number, isFailed: boolean, d
                 return null;
             }
         case CellState.FLAGGED:
-            return getFlagContent(dispatch);
+            return getFlagContent();
         case CellState.QUESTIONED:
             return getQuestionContent();
     }
@@ -97,10 +97,11 @@ function getQuestionContent() {
     );
 }
 
-function getFlagContent(dispatch: React.Dispatch<any>) {
+function getFlagContent() {
     return (
-        <img className="flag" width="22" height="22" src="flag.png" alt="123"
-             onMouseDown={dragNDropFlagOnGrid(dispatch)}/>
+        <div className="flag">
+            <FlagImage/>
+        </div>
     );
 }
 

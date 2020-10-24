@@ -1,12 +1,12 @@
+.bomb {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .flag {
     position: relative;
     top: -32px;
     left: -2px;
     user-select: none;
-}
-
-.bomb {
-    position: absolute;
-    top: 0;
-    left: 0;
 }

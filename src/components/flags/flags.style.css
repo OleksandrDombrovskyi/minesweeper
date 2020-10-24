@@ -4,27 +4,27 @@
     height: 50px;
 }
 
-img[class*="drag_n_drop_flag_"] {
+[class*="drag_n_drop_flag_"] {
     position: absolute;
     top: 15px;
 }
 
-img.drag_n_drop_flag_1 {
+.drag_n_drop_flag_1 {
     left: 10px;
     top: 15px;
 }
 
-img.drag_n_drop_flag_2 {
+.drag_n_drop_flag_2 {
     left: 15px;
     top: 18px;
 }
 
-img.drag_n_drop_flag_3 {
+.drag_n_drop_flag_3 {
     left: 20px;
     top: 21px;
 }
 
-img.drag_n_drop_flag_4 {
+.drag_n_drop_flag_4 {
     left: 25px;
     top: 24px;
 
