@@ -4,19 +4,30 @@ import './button.style.css';
 export interface ButtonProps {
     isPressed: boolean;
     isFailed?: boolean;
-    isOver?: boolean
+    isOver?: boolean;
+    width?: number;
+    height?: number;
+    stroke?: number;
 }
 
 export const Button: FunctionComponent<ButtonProps> = (props: PropsWithChildren<ButtonProps>) => {
+    const {
+        width = 30,
+        height = 30,
+        stroke = 3,
+        children
+    } = props;
 
     return (
-        <div className="img-overlay-svg">
-            <svg width="33" height="33">
-                <rect className={getClassName(props)} width="30" height="30"/>
+        <div className="button_container" style={{width, height}}>
+            <svg width={width + stroke} height={width + stroke}>
+                <rect className={getClassName(props)} width={width} height={height}/>
             </svg>
-            {props.children}
+            <div className="content" style={{width, height}}>
+                {children}
+            </div>
         </div>
-        )
+    )
 };
 
 function getClassName({isPressed, isFailed, isOver}: ButtonProps) {

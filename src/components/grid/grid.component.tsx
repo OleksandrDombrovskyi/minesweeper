@@ -10,7 +10,10 @@ import {
     selectIsFlagSelected,
     selectIsGameFailed,
     selectIsGameWon,
-    selectIsGridGenerated
+    selectIsGridGenerated,
+    selectIsMagicWandSelected,
+    selectIsQuestionSelected,
+    selectIsRemoveQuestionSelected
 } from "../../reducers/game/game.selector";
 import {AppState} from "../../reducers/rootReducer";
 import {connect, useDispatch} from "react-redux";
@@ -44,7 +47,10 @@ const mapStateToProps = createStructuredSelector<AppState, GameState>({
     isGridCalculated: selectIsGridGenerated,
     gameTime: selectGameTime,
     isFlagSelected: selectIsFlagSelected,
-    isFlagCrossedSelected: selectIsCrossedFlagSelected
+    isFlagCrossedSelected: selectIsCrossedFlagSelected,
+    isQuestionSelected: selectIsQuestionSelected,
+    isRemoveQuestionSelected: selectIsRemoveQuestionSelected,
+    isMagicWandSelected: selectIsMagicWandSelected
 })
 
 export default connect(mapStateToProps)(GridComponent)

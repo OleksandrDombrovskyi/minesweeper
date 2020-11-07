@@ -22,7 +22,10 @@ export interface GameState {
     gameTime: number;
     isFlagSelected: boolean;
     isFlagCrossedSelected: boolean;
-    grid: Grid
+    isQuestionSelected: boolean;
+    isRemoveQuestionSelected: boolean;
+    isMagicWandSelected: boolean;
+    grid: Grid;
 }
 
 export const INITIAL_STATE: GameState = {
@@ -32,6 +35,9 @@ export const INITIAL_STATE: GameState = {
     gameTime: 0,
     isFlagSelected: false,
     isFlagCrossedSelected: false,
+    isQuestionSelected: false,
+    isRemoveQuestionSelected: false,
+    isMagicWandSelected: false,
     grid: {
         cells: generateDefaultGrid(10, 10)
     }

@@ -73,7 +73,7 @@ const MobilePreviewForTouchEvent = () => {
     }
     if (itemType === DnDTypes.FLAG) {
         return (
-            <img width="50" height="50" src="flag_big.png" alt="123" style={{...style, zIndex: 50}}/>
+            <img width="50" height="50" src="flag_big.png" alt="123" style={{...style, zIndex: 50, top: -10, left: -10}}/>
         )
     }
     return null;

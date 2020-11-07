@@ -110,9 +110,7 @@ function getQuestionContent() {
 
 function getFlagContent(position: CellPosition) {
     return (
-        <div className="flag">
             <FlagImage cellPosition={position}/>
-        </div>
     );
 }
 

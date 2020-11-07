@@ -2,8 +2,6 @@ span.question, span[class*="number_"] {
     font-size: 18pt;
     font-family: Verdana, serif;
     font-weight: 500;
-    position: relative;
-    top: -35px;
     cursor: default;
     user-select: none;
 }

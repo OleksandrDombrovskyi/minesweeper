@@ -74,3 +74,18 @@ export const selectIsCrossedFlagSelected = createSelector<AppState, GameState, b
     [selectGameState],
     (gameState: GameState) => gameState.isFlagCrossedSelected
 )
+
+export const selectIsQuestionSelected = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isQuestionSelected
+)
+
+export const selectIsRemoveQuestionSelected = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isRemoveQuestionSelected
+)
+
+export const selectIsMagicWandSelected = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isMagicWandSelected
+)
