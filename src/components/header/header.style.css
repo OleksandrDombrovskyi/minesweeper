@@ -5,35 +5,20 @@
     z-index: 10;
     background: #ffffff;
     display: flex;
-    justify-content: center;
     user-select: none;
 }
 
-img.smile_image {
-    width: 50px;
-    height: 50px;
+.header .left_box {
+    flex: 1;
+    display: flex;
 }
 
-img.smile_image:active {
-    width: 44px;
-    height: 44px;
-    padding: 3px;
-}
-
-.smile {
-    width: 67px;
-}
-
-.timer, .flags_and_counter_container {
-    width: 132px;
-}
-
-.counter, .flags {
-    width: 66px;
-    display: inline-block;
-}
-
-.flags_and_counter_container {
-    position: relative;
+.header .centered_box {
+    flex: 1;
+    display: flex;
     justify-content: center;
+}
+
+.header .right_box {
+    flex: 1;
 }
