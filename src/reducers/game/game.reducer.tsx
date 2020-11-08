@@ -29,6 +29,7 @@ export interface GameState {
     isQuestionSelected: boolean;
     isRemoveQuestionSelected: boolean;
     isMagicWandSelected: boolean;
+    magicWandCounter: number;
     isMenuOpened: boolean;
     grid: Grid;
 }
@@ -43,6 +44,7 @@ export const INITIAL_STATE: GameState = {
     isQuestionSelected: false,
     isRemoveQuestionSelected: false,
     isMagicWandSelected: false,
+    magicWandCounter: 3,
     isMenuOpened: false,
     grid: {
         cells: generateDefaultGrid(10, 10)
@@ -122,7 +124,7 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
         case ActionTypes.selectMagicWand:
             return {
                 ...state,
-                isMagicWandSelected: state.isGridCalculated
+                isMagicWandSelected: state.isGridCalculated && state.magicWandCounter > 0
             }
         case ActionTypes.openMenuAction:
             return {
@@ -174,7 +176,10 @@ function rerenderGridOnClick(state: GameState, cellPosition: CellPosition): Cell
     } else if (state.isRemoveQuestionSelected) {
         removeQuestion(gridCells, cellPosition);
     } else if (state.isMagicWandSelected) {
-        openCellSafely(gridCells, cellPosition);
+        const isUsed = openCellSafely(gridCells, cellPosition);
+        if (isUsed) {
+            state.magicWandCounter--;
+        }
     } else {
         if (!state.isGridCalculated) {
             gridCells = moveBombsFromClickedCellAndCalculateGrid(gridCells, cellPosition);

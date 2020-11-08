@@ -17,3 +17,11 @@
 .small_button {
     align-self: flex-end;
 }
+
+.magic_wand_counter {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 3px;
+    color: blue;
+}

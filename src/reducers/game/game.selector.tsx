@@ -94,3 +94,8 @@ export const selectIsMenuOpened = createSelector<AppState, GameState, boolean>(
     [selectGameState],
     (gameState: GameState) => gameState.isMenuOpened
 )
+
+export const selectMagicWandCounter = createSelector<AppState, GameState, number>(
+    [selectGameState],
+    (gameState: GameState) => gameState.magicWandCounter
+)

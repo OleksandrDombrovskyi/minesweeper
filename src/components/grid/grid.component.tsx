@@ -14,7 +14,8 @@ import {
     selectIsMagicWandSelected,
     selectIsMenuOpened,
     selectIsQuestionSelected,
-    selectIsRemoveQuestionSelected
+    selectIsRemoveQuestionSelected,
+    selectMagicWandCounter
 } from "../../reducers/game/game.selector";
 import {AppState} from "../../reducers/rootReducer";
 import {connect, useDispatch} from "react-redux";
@@ -52,7 +53,8 @@ const mapStateToProps = createStructuredSelector<AppState, GameState>({
     isQuestionSelected: selectIsQuestionSelected,
     isRemoveQuestionSelected: selectIsRemoveQuestionSelected,
     isMagicWandSelected: selectIsMagicWandSelected,
-    isMenuOpened: selectIsMenuOpened
+    isMenuOpened: selectIsMenuOpened,
+    magicWandCounter: selectMagicWandCounter,
 })
 
 export default connect(mapStateToProps)(GridComponent)

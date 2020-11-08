@@ -47,16 +47,19 @@ export function removeQuestion(cells: CellProps[][], cellPosition: CellPosition)
     }
 }
 
-export function openCellSafely(cells: CellProps[][], cellPosition: CellPosition) {
+export function openCellSafely(cells: CellProps[][], cellPosition: CellPosition): boolean {
     const clickedCell = cells[cellPosition.y][cellPosition.x];
 
-    if (clickedCell.state !== CellState.OPEN) {
-        if (clickedCell.number === -1) {
-            clickedCell.state = CellState.FLAGGED;
-        } else {
-            openCell(cells, clickedCell.position)
-        }
+    if (clickedCell.state === CellState.OPEN || clickedCell.state === CellState.FLAGGED) {
+        return false;
     }
+
+    if (clickedCell.number === -1) {
+        clickedCell.state = CellState.FLAGGED;
+    } else {
+        openCell(cells, clickedCell.position)
+    }
+    return true;
 }
 
 export function handleOnRightClick(cells: CellProps[][], cellPosition: CellPosition) {

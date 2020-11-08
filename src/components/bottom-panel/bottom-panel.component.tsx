@@ -5,7 +5,7 @@ import {
     selectIsFlagSelected,
     selectIsMagicWandSelected,
     selectIsQuestionSelected,
-    selectIsRemoveQuestionSelected
+    selectIsRemoveQuestionSelected, selectMagicWandCounter
 } from "../../reducers/game/game.selector";
 import './bottom-panel.style.css';
 import {Button} from "../button/button.component";
@@ -13,12 +13,13 @@ import {ActionTypes} from "../../actions/actions";
 
 export const BottomPanel = () => {
 
-    const dispatch = useDispatch(); //TODO: add logic for add/remove flag and add/remove question mark
-    let isFlagSelected = useSelector(selectIsFlagSelected);
-    let isCrossedFlagSelected = useSelector(selectIsCrossedFlagSelected);
-    let isQuestionSelected = useSelector(selectIsQuestionSelected);
-    let isRemoveQuestionSelected = useSelector(selectIsRemoveQuestionSelected);
-    let isIsMagicWandSelected = useSelector(selectIsMagicWandSelected);
+    const dispatch = useDispatch();
+    const isFlagSelected = useSelector(selectIsFlagSelected);
+    const isCrossedFlagSelected = useSelector(selectIsCrossedFlagSelected);
+    const isQuestionSelected = useSelector(selectIsQuestionSelected);
+    const isRemoveQuestionSelected = useSelector(selectIsRemoveQuestionSelected);
+    const isIsMagicWandSelected = useSelector(selectIsMagicWandSelected);
+    const magicWandCounter = useSelector(selectMagicWandCounter);
 
     const buttonWidth = 60;
     const buttonHeight = 60;
@@ -39,9 +40,10 @@ export const BottomPanel = () => {
                     </Button>
                 </div>
             </div>
-            <div className="magic_wand" onClick={() => dispatch({type: ActionTypes.selectMagicWand})}>
+            <div className="magic_wand" onClick={() => dispatch({type: ActionTypes.selectMagicWand})} style={disableIdCounterZero(magicWandCounter)}>
                 <Button isPressed={isIsMagicWandSelected} height={buttonHeight} width={buttonWidth}>
                     <img width="44" height="44" src="magic_wand.png" alt="123"/>
+                    <span className="magic_wand_counter">{magicWandCounter}</span>
                 </Button>
             </div>
             <div className="flags">
@@ -58,4 +60,8 @@ export const BottomPanel = () => {
             </div>
         </div>
     );
+}
+
+function disableIdCounterZero(magicWandCounter: number): React.CSSProperties | undefined {
+    return magicWandCounter <= 0 ? {pointerEvents: "none", opacity: 0.5} : {};
 }
