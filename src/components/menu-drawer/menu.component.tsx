@@ -37,7 +37,7 @@ export const DrawerMenu = () => {
                 <ListItemIcon>
                     <TuneIcon fontSize="small"/>
                 </ListItemIcon>
-                <ListItemText primary="Levels"/>
+                <ListItemText primary="Level"/>
             </MenuItem>
             <MenuItem>
                 <ListItemIcon>

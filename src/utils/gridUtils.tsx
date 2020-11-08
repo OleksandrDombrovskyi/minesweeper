@@ -31,6 +31,34 @@ export function removeFlag(cells: CellProps[][], cellPosition: CellPosition) {
     }
 }
 
+export function addQuestion(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
+
+    if (clickedCell.state !== CellState.OPEN) {
+        clickedCell.state = CellState.QUESTIONED;
+    }
+}
+
+export function removeQuestion(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
+
+    if (clickedCell.state === CellState.QUESTIONED) {
+        clickedCell.state = CellState.INITIAL;
+    }
+}
+
+export function openCellSafely(cells: CellProps[][], cellPosition: CellPosition) {
+    const clickedCell = cells[cellPosition.y][cellPosition.x];
+
+    if (clickedCell.state !== CellState.OPEN) {
+        if (clickedCell.number === -1) {
+            clickedCell.state = CellState.FLAGGED;
+        } else {
+            openCell(cells, clickedCell.position)
+        }
+    }
+}
+
 export function handleOnRightClick(cells: CellProps[][], cellPosition: CellPosition) {
     const clickedCell = cells[cellPosition.y][cellPosition.x];
     switch (clickedCell.state) {

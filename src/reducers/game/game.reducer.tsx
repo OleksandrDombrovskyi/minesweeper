@@ -2,13 +2,16 @@ import {Action, ActionTypes} from "../../actions/actions";
 import {CellPosition, CellProps} from "../../components/cell/cell.component";
 import {
     addFlag,
+    addQuestion,
     handleOnClick,
     handleOnDragNDroppedFlag,
     handleOnDragNDroppedRemoveFlag,
     handleOnRightClick,
     isAllCellsOpened,
     openAllBombs,
-    removeFlag
+    openCellSafely,
+    removeFlag,
+    removeQuestion
 } from "../../utils/gridUtils";
 import {generateDefaultGrid, moveBombsFromClickedCellAndCalculateGrid} from "../../utils/gridGeneratorUtils";
 
@@ -59,7 +62,10 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 },
                 isGameWon: isGameWon(cells),
                 isFlagSelected: false,
-                isFlagCrossedSelected: false
+                isFlagCrossedSelected: false,
+                isQuestionSelected: false,
+                isRemoveQuestionSelected: false,
+                isMagicWandSelected: false
             }
         case ActionTypes.cellClickFailed:
             return {
@@ -103,6 +109,21 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isFlagSelected: false,
                 isFlagCrossedSelected: !state.isFlagCrossedSelected
             }
+        case ActionTypes.selectQuestion:
+            return {
+                ...state,
+                isQuestionSelected: true
+            }
+        case ActionTypes.selectCrossedQuestion:
+            return {
+                ...state,
+                isRemoveQuestionSelected: true
+            }
+        case ActionTypes.selectMagicWand:
+            return {
+                ...state,
+                isMagicWandSelected: state.isGridCalculated
+            }
         case ActionTypes.openMenuAction:
             return {
                 ...state,
@@ -145,9 +166,15 @@ function rerenderGridOnClick(state: GameState, cellPosition: CellPosition): Cell
     let gridCells = state.grid.cells;
 
     if (state.isFlagSelected) {
-        addFlag(gridCells, cellPosition)
+        addFlag(gridCells, cellPosition);
     } else if (state.isFlagCrossedSelected) {
-        removeFlag(gridCells, cellPosition)
+        removeFlag(gridCells, cellPosition);
+    } else if (state.isQuestionSelected) {
+        addQuestion(gridCells, cellPosition);
+    } else if (state.isRemoveQuestionSelected) {
+        removeQuestion(gridCells, cellPosition);
+    } else if (state.isMagicWandSelected) {
+        openCellSafely(gridCells, cellPosition);
     } else {
         if (!state.isGridCalculated) {
             gridCells = moveBombsFromClickedCellAndCalculateGrid(gridCells, cellPosition);

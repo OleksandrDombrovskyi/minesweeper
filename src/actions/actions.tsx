@@ -11,6 +11,9 @@ export enum ActionTypes {
     dragNDropFlag,
     selectFlag,
     selectCrossedFlag,
+    selectQuestion,
+    selectCrossedQuestion,
+    selectMagicWand,
     openMenuAction,
     closeMenuAction,
 }
@@ -63,6 +66,18 @@ export interface SelectCrossedFlagAction {
     payload: null
 }
 
+export interface SelectQuestionAction {
+    type: ActionTypes.selectQuestion
+}
+
+export interface SelectCrossedQuestion {
+    type: ActionTypes.selectCrossedQuestion
+}
+
+export interface SelectMagicWand {
+    type: ActionTypes.selectMagicWand
+}
+
 export interface OpenMenuAction {
     type: ActionTypes.openMenuAction
     payload: null
@@ -73,4 +88,4 @@ export interface CloseMenuAction {
     payload: null
 }
 
-export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime | DragNDropFlag | SelectFlagAction | SelectCrossedFlagAction | OpenMenuAction | CloseMenuAction;
+export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime | DragNDropFlag | SelectFlagAction | SelectCrossedFlagAction | SelectQuestionAction | SelectCrossedQuestion | SelectMagicWand | OpenMenuAction | CloseMenuAction;
