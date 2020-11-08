@@ -89,3 +89,8 @@ export const selectIsMagicWandSelected = createSelector<AppState, GameState, boo
     [selectGameState],
     (gameState: GameState) => gameState.isMagicWandSelected
 )
+
+export const selectIsMenuOpened = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isMenuOpened
+)

@@ -11,6 +11,8 @@ export enum ActionTypes {
     dragNDropFlag,
     selectFlag,
     selectCrossedFlag,
+    openMenuAction,
+    closeMenuAction,
 }
 
 export interface StartGame {
@@ -61,4 +63,14 @@ export interface SelectCrossedFlagAction {
     payload: null
 }
 
-export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime | DragNDropFlag | SelectFlagAction | SelectCrossedFlagAction;
+export interface OpenMenuAction {
+    type: ActionTypes.openMenuAction
+    payload: null
+}
+
+export interface CloseMenuAction {
+    type: ActionTypes.closeMenuAction
+    payload: null
+}
+
+export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime | DragNDropFlag | SelectFlagAction | SelectCrossedFlagAction | OpenMenuAction | CloseMenuAction;

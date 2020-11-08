@@ -1,22 +1,35 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import "./header.style.css";
 import {CentralNavbar} from "../central-navbar/central-navbar.component";
-import {MenuButton} from "../menu-button/menu-button.component";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
+import MenuIcon from '@material-ui/icons/Menu';
+import {useDispatch} from "react-redux";
+import {ActionTypes} from "../../actions/actions";
 
 export const Header = () => {
+
+    const dispatch = useDispatch();
+
     return (
         <div className="header">
-            <div className="left_box">
-                {
-                    !isMobileDevice() && <MenuButton/>
-                }
-            </div>
+            {
+                !isMobileDevice() &&
+                <div className="left_box">
+                    <MenuIcon
+                        fontSize="large"
+                        style={{paddingTop: 10, paddingLeft: 10, cursor: "pointer"}}
+                        color="action"
+                        onClick={() => dispatch({type: ActionTypes.openMenuAction})}/>
+                </div>
+            }
             <div className="centered_box">
                 <CentralNavbar/>
             </div>
-            <div className="right_box">
-            </div>
+            {
+                !isMobileDevice() &&
+                <div className="right_box">
+                </div>
+            }
         </div>
     )
 }

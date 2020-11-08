@@ -7,7 +7,8 @@ import {
     handleOnDragNDroppedRemoveFlag,
     handleOnRightClick,
     isAllCellsOpened,
-    openAllBombs, removeFlag
+    openAllBombs,
+    removeFlag
 } from "../../utils/gridUtils";
 import {generateDefaultGrid, moveBombsFromClickedCellAndCalculateGrid} from "../../utils/gridGeneratorUtils";
 
@@ -25,6 +26,7 @@ export interface GameState {
     isQuestionSelected: boolean;
     isRemoveQuestionSelected: boolean;
     isMagicWandSelected: boolean;
+    isMenuOpened: boolean;
     grid: Grid;
 }
 
@@ -38,6 +40,7 @@ export const INITIAL_STATE: GameState = {
     isQuestionSelected: false,
     isRemoveQuestionSelected: false,
     isMagicWandSelected: false,
+    isMenuOpened: false,
     grid: {
         cells: generateDefaultGrid(10, 10)
     }
@@ -99,6 +102,16 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 ...state,
                 isFlagSelected: false,
                 isFlagCrossedSelected: !state.isFlagCrossedSelected
+            }
+        case ActionTypes.openMenuAction:
+            return {
+                ...state,
+                isMenuOpened: true
+            }
+        case ActionTypes.closeMenuAction:
+            return {
+                ...state,
+                isMenuOpened: false
             }
         default:
             return INITIAL_STATE;

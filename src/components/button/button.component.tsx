@@ -14,16 +14,12 @@ export const Button: FunctionComponent<ButtonProps> = (props: PropsWithChildren<
     const {
         width = 30,
         height = 30,
-        stroke = 3,
         children
     } = props;
 
     return (
         <div className="button_container" style={{width, height}}>
-            <svg width={width + stroke} height={width + stroke}>
-                <rect className={getClassName(props)} width={width} height={height}/>
-            </svg>
-            <div className="content" style={{width, height}}>
+            <div className={getClassName(props) + " content"} style={{width, height}}>
                 {children}
             </div>
         </div>

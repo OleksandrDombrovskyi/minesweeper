@@ -12,6 +12,7 @@ import {
     selectIsGameWon,
     selectIsGridGenerated,
     selectIsMagicWandSelected,
+    selectIsMenuOpened,
     selectIsQuestionSelected,
     selectIsRemoveQuestionSelected
 } from "../../reducers/game/game.selector";
@@ -50,7 +51,8 @@ const mapStateToProps = createStructuredSelector<AppState, GameState>({
     isFlagCrossedSelected: selectIsCrossedFlagSelected,
     isQuestionSelected: selectIsQuestionSelected,
     isRemoveQuestionSelected: selectIsRemoveQuestionSelected,
-    isMagicWandSelected: selectIsMagicWandSelected
+    isMagicWandSelected: selectIsMagicWandSelected,
+    isMenuOpened: selectIsMenuOpened
 })
 
 export default connect(mapStateToProps)(GridComponent)

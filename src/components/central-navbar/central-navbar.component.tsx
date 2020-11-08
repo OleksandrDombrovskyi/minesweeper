@@ -14,7 +14,7 @@ import {Action, ActionTypes} from "../../actions/actions";
 import {INITIAL_STATE} from "../../reducers/game/game.reducer";
 import {generateDefaultGrid} from "../../utils/gridGeneratorUtils";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
-import {MenuButton} from "../menu-button/menu-button.component";
+import MenuIcon from "@material-ui/icons/Menu";
 
 export const CentralNavbar = () => {
 
@@ -32,8 +32,8 @@ export const CentralNavbar = () => {
             <div className="flags">
                 {
                     isMobileDevice()
-                    ? <MenuButton/>
-                    : <Flags/>
+                        ? <MenuIcon fontSize="large" style={{paddingTop: 10}} color="action" onClick={() => dispatch({type: ActionTypes.openMenuAction})}/>
+                        : <Flags/>
                 }
             </div>
             <div className="counter">
