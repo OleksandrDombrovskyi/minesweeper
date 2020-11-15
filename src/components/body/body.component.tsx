@@ -6,7 +6,7 @@ import {isMobileDevice} from "../../utils/detectmobilebrowser";
 export const Body = () => {
     return (
         <div className="body_container">
-            <div className="body" style={isMobileDevice() ? {marginBottom: "91px"} : {}}>
+            <div className="body" style={isMobileDevice() ? {marginBottom: "80px"} : {}}>
                 <GridComponent/>
             </div>
         </div>
