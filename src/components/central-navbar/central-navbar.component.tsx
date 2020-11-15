@@ -1,4 +1,4 @@
-import React, {Dispatch} from "react";
+import React from "react";
 import './central-navbar.style.css';
 import {Flags} from "../flags/flags.component";
 import {Counter} from "../counter/counter.component";
@@ -8,15 +8,19 @@ import {
     selectBombAmount,
     selectFlagAmount,
     selectIsGameFailed,
-    selectIsGameWon
+    selectIsGameWon,
+    selectLevelParams
 } from "../../reducers/game/game.selector";
 import {Action, ActionTypes} from "../../actions/actions";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
 import MenuIcon from "@material-ui/icons/Menu";
+import {LevelParams} from "../../reducers/game/data";
 
 export const CentralNavbar = () => {
 
     const dispatch = useDispatch();
+
+    const levelParams = useSelector(selectLevelParams);
 
     const isGameWon = useSelector(selectIsGameWon)
     const isGameFailed = useSelector(selectIsGameFailed)
@@ -38,7 +42,7 @@ export const CentralNavbar = () => {
                 <Counter/>
             </div>
             <div className="smile">
-                <img className="smile_image" src={"smiles/" + imageName} alt="fail" onClick={startGame(dispatch)}/>
+                <img className="smile_image" src={"smiles/" + imageName} alt="fail" onClick={startGame(dispatch, levelParams)}/>
             </div>
             <div className="timer">
                 <Timer/>
@@ -59,6 +63,9 @@ function getSmileImageName(isGameFailed: boolean, isGameWon: boolean, bombAmount
     }
 }
 
-function startGame(dispatch: Dispatch<Action>) {
-    return () => dispatch({type: ActionTypes.startGame})
+function startGame(dispatch: React.Dispatch<Action>, levelParams: LevelParams) {
+    return () => dispatch({
+        type: ActionTypes.startGame,
+        payload: levelParams
+    })
 }

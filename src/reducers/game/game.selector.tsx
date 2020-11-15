@@ -2,6 +2,7 @@ import {createSelector} from 'reselect';
 import {AppState} from "../rootReducer";
 import {GameState, Grid} from "./game.reducer";
 import {CellPosition, CellProps, CellState} from "../../components/cell/cell.component";
+import {LevelParams} from "./data";
 
 const selectGameState = (state: AppState): GameState => state.gameState;
 
@@ -103,4 +104,9 @@ export const selectMagicWandCounter = createSelector<AppState, GameState, number
 export const selectIsLevelDialogOpened = createSelector<AppState, GameState, boolean>(
     [selectGameState],
     (gameState: GameState) => gameState.isLevelDialogOpened
+)
+
+export const selectLevelParams = createSelector<AppState, GameState, LevelParams>(
+    [selectGameState],
+    (gameState: GameState) => gameState.level
 )

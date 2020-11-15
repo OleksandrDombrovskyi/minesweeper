@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import GridCell, {CellProps} from "../cell/cell.component";
 import './grid.style.css';
-import {GameState, INITIAL_LEVEL_PARAMS} from "../../reducers/game/game.reducer";
+import {GameState} from "../../reducers/game/game.reducer";
 import {createStructuredSelector} from "reselect";
 import {
     selectGameGrid,
@@ -16,6 +16,7 @@ import {
     selectIsMenuOpened,
     selectIsQuestionSelected,
     selectIsRemoveQuestionSelected,
+    selectLevelParams,
     selectMagicWandCounter
 } from "../../reducers/game/game.selector";
 import {AppState} from "../../reducers/rootReducer";
@@ -24,24 +25,31 @@ import {ActionTypes} from "../../actions/actions";
 
 const GridComponent = (props: GameState) => {
 
+    const {
+        isGameWon,
+        isGameFailed,
+        grid,
+        level
+    } = props;
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (props.isGameWon) {
+        if (isGameWon) {
             dispatch({type: ActionTypes.gameWon})
         }
     })
 
-    const numberOfColumns = INITIAL_LEVEL_PARAMS.width;
-    const numberOfRows = INITIAL_LEVEL_PARAMS.height;
+    const numberOfColumns = level.width;
+    const numberOfRows = level.height;
 
     return (
-        <div className={"grid" + (props.isGameFailed || props.isGameWon ? " disabled" : "")}  style={{
+        <div className={"grid" + (isGameFailed || isGameWon ? " disabled" : "")}  style={{
             gridTemplateColumns: `repeat(${numberOfColumns}, 33px)`,
             gridTemplateRows: `repeat(${numberOfRows}, 33px)`
         }}>
             {
-                props.grid.cells.map((cellProps: Array<CellProps>) =>
+                grid.cells.map((cellProps: Array<CellProps>) =>
                     cellProps.map(cellProp => <GridCell
                         key={cellProp.position.x + "x" + cellProp.position.y} {...cellProp}/>))
             }
@@ -63,6 +71,7 @@ const mapStateToProps = createStructuredSelector<AppState, GameState>({
     isMenuOpened: selectIsMenuOpened,
     magicWandCounter: selectMagicWandCounter,
     isLevelDialogOpened: selectIsLevelDialogOpened,
+    level: selectLevelParams,
 })
 
 export default connect(mapStateToProps)(GridComponent)

@@ -14,7 +14,7 @@ import {
     removeQuestion
 } from "../../utils/gridUtils";
 import {generateDefaultGrid, moveBombsFromClickedCellAndCalculateGrid} from "../../utils/gridGeneratorUtils";
-import {Complexity, LevelParams, levelsTable, Size} from "./data";
+import {LevelParams, levelsTable} from "./data";
 
 export interface Grid {
     cells: Array<Array<CellProps>>
@@ -33,10 +33,11 @@ export interface GameState {
     magicWandCounter: number;
     isMenuOpened: boolean;
     isLevelDialogOpened: boolean;
+    level: LevelParams,
     grid: Grid;
 }
 
-export const INITIAL_LEVEL_PARAMS: LevelParams = levelsTable.get(Size.SMALL)?.get(Complexity.EASY) as LevelParams;
+export const INITIAL_LEVEL_PARAMS: LevelParams = levelsTable.get("small")?.get("easy") as LevelParams;
 
 export const INITIAL_STATE: GameState = {
     isGameWon: false,
@@ -51,6 +52,7 @@ export const INITIAL_STATE: GameState = {
     magicWandCounter: INITIAL_LEVEL_PARAMS.magicWandAmount,
     isMenuOpened: false,
     isLevelDialogOpened: false,
+    level: INITIAL_LEVEL_PARAMS,
     grid: {
         cells: generateDefaultGrid(INITIAL_LEVEL_PARAMS)
     }
@@ -59,12 +61,7 @@ export const INITIAL_STATE: GameState = {
 export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): GameState => {
     switch (action.type) {
         case ActionTypes.startGame:
-            return {
-                ...INITIAL_STATE,
-                grid: {
-                    cells: generateDefaultGrid(INITIAL_LEVEL_PARAMS)
-                }
-            }
+            return createNewGameState(action.payload);
         case ActionTypes.cellClicked:
             let cells = rerenderGridOnClick(state, action.payload);
             return {
@@ -176,13 +173,22 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isLevelDialogOpened: false
             }
         case ActionTypes.changeLevel:
-            return {
-                ...state
-                //TODO: handle change level
-            }
+            const levelParams: LevelParams = levelsTable.get(action.payload.scale)?.get(action.payload.complexity) as LevelParams;
+            return createNewGameState(levelParams)
         default:
             return INITIAL_STATE;
     }
+}
+
+function createNewGameState(levelParams: LevelParams) {
+    return {
+        ...INITIAL_STATE,
+        magicWandCounter: levelParams.magicWandAmount,
+        level: levelParams,
+        grid: {
+            cells: generateDefaultGrid(levelParams)
+        }
+    };
 }
 
 function rerenderGridOnDragNDroppedFlag(cells: Array<Array<CellProps>>, cellToAddFlag?: CellPosition, cellToRemoveFlag?: CellPosition): Array<Array<CellProps>> {

@@ -20,8 +20,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectIsLevelDialogOpened} from "../../reducers/game/game.selector";
 import {ActionTypes} from "../../actions/actions";
 
-type GameComplexity = "easy" | "medium" | "hard" | "crazy";
-type GameScale = "small" | "medium" | "big" | "huge";
+export type GameComplexity = "easy" | "medium" | "hard" | "crazy";
+export type GameScale = "small" | "medium" | "big" | "huge";
 
 export interface GameLevel {
     scale: GameScale
