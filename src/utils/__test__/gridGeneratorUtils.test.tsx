@@ -14,14 +14,14 @@ import {CellProps} from "../../components/cell/cell.component";
 describe('should generate grid', function () {
     describe("generate boolean grid", function () {
         it("should generate grid of size 3x3 with 2 bombs", function () {
-            const grid = generateBooleanArray(3, 3);
+            const grid = generateBooleanArray(3, 3, 2);
 
             assert.strictEqual(grid.length, 9);
             assert.strictEqual(grid.filter(item => item).length, 2);
         })
 
         it("should generate grid of size 100x100 with 2500 bombs", function () {
-            const grid = generateBooleanArray(100, 100);
+            const grid = generateBooleanArray(100, 100, 2500);
 
             assert.strictEqual(grid.length, 10_000);
             assert.strictEqual(grid.filter(item => item).length, 2500);
@@ -87,7 +87,7 @@ describe('should generate grid', function () {
     })
 
     it('should generate 50x100 grid', function () {
-        const grid = generateDefaultGrid(50, 100);
+        const grid = generateDefaultGrid({width: 50, height: 100, bombAmount: 0, magicWandAmount: 0});
 
         expect(grid.length).toEqual(100);
         expect(grid[0].length).toEqual(50);

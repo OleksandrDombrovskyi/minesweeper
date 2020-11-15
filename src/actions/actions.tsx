@@ -1,4 +1,3 @@
-import {GameState} from "../reducers/game/game.reducer";
 import {CellPosition} from "../components/cell/cell.component";
 import {GameLevel} from "../components/level-dialog/level-dialog.component";
 
@@ -23,8 +22,7 @@ export enum ActionTypes {
 }
 
 export interface StartGame {
-    type: ActionTypes.startGame,
-    payload: GameState
+    type: ActionTypes.startGame
 }
 
 export interface CellClicked {

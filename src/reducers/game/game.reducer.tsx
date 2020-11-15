@@ -14,6 +14,7 @@ import {
     removeQuestion
 } from "../../utils/gridUtils";
 import {generateDefaultGrid, moveBombsFromClickedCellAndCalculateGrid} from "../../utils/gridGeneratorUtils";
+import {Complexity, LevelParams, levelsTable, Size} from "./data";
 
 export interface Grid {
     cells: Array<Array<CellProps>>
@@ -35,6 +36,8 @@ export interface GameState {
     grid: Grid;
 }
 
+export const INITIAL_LEVEL_PARAMS: LevelParams = levelsTable.get(Size.SMALL)?.get(Complexity.EASY) as LevelParams;
+
 export const INITIAL_STATE: GameState = {
     isGameWon: false,
     isGameFailed: false,
@@ -45,18 +48,23 @@ export const INITIAL_STATE: GameState = {
     isQuestionSelected: false,
     isRemoveQuestionSelected: false,
     isMagicWandSelected: false,
-    magicWandCounter: 3,
+    magicWandCounter: INITIAL_LEVEL_PARAMS.magicWandAmount,
     isMenuOpened: false,
     isLevelDialogOpened: false,
     grid: {
-        cells: generateDefaultGrid(10, 10)
+        cells: generateDefaultGrid(INITIAL_LEVEL_PARAMS)
     }
 }
 
 export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): GameState => {
     switch (action.type) {
         case ActionTypes.startGame:
-            return action.payload;
+            return {
+                ...INITIAL_STATE,
+                grid: {
+                    cells: generateDefaultGrid(INITIAL_LEVEL_PARAMS)
+                }
+            }
         case ActionTypes.cellClicked:
             let cells = rerenderGridOnClick(state, action.payload);
             return {

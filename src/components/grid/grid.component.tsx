@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import GridCell, {CellProps} from "../cell/cell.component";
 import './grid.style.css';
-import {GameState} from "../../reducers/game/game.reducer";
+import {GameState, INITIAL_LEVEL_PARAMS} from "../../reducers/game/game.reducer";
 import {createStructuredSelector} from "reselect";
 import {
     selectGameGrid,
@@ -32,8 +32,14 @@ const GridComponent = (props: GameState) => {
         }
     })
 
+    const numberOfColumns = INITIAL_LEVEL_PARAMS.width;
+    const numberOfRows = INITIAL_LEVEL_PARAMS.height;
+
     return (
-        <div className={"grid" + (props.isGameFailed || props.isGameWon ? " disabled" : "")}>
+        <div className={"grid" + (props.isGameFailed || props.isGameWon ? " disabled" : "")}  style={{
+            gridTemplateColumns: `repeat(${numberOfColumns}, 33px)`,
+            gridTemplateRows: `repeat(${numberOfRows}, 33px)`
+        }}>
             {
                 props.grid.cells.map((cellProps: Array<CellProps>) =>
                     cellProps.map(cellProp => <GridCell

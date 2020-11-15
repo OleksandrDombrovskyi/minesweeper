@@ -11,8 +11,6 @@ import {
     selectIsGameWon
 } from "../../reducers/game/game.selector";
 import {Action, ActionTypes} from "../../actions/actions";
-import {INITIAL_STATE} from "../../reducers/game/game.reducer";
-import {generateDefaultGrid} from "../../utils/gridGeneratorUtils";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -62,13 +60,5 @@ function getSmileImageName(isGameFailed: boolean, isGameWon: boolean, bombAmount
 }
 
 function startGame(dispatch: Dispatch<Action>) {
-    return () => dispatch({
-        type: ActionTypes.startGame,
-        payload: {
-            ...INITIAL_STATE,
-            grid: {
-                cells: generateDefaultGrid(10, 10)
-            }
-        }
-    })
+    return () => dispatch({type: ActionTypes.startGame})
 }

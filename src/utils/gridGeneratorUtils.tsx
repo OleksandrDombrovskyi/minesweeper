@@ -1,8 +1,9 @@
 import {CellPosition, CellProps} from "../components/cell/cell.component";
 import {isPositionOutOfBound} from "./gridUtils";
+import {LevelParams} from "../reducers/game/data";
 
-export function generateDefaultGrid(width: number, height: number): Array<Array<CellProps>> {
-    let booleanArray = generateBooleanArray(width, height);
+export function generateDefaultGrid({width, height, bombAmount}: LevelParams): Array<Array<CellProps>> {
+    let booleanArray = generateBooleanArray(width, height, bombAmount);
     let shuffledBooleanArray = shuffle(booleanArray);
     let booleanGrid = convertArrayIntoGrid(shuffledBooleanArray, width, height);
     let numberGrid = convertBooleanGridToNumber(booleanGrid);
@@ -49,9 +50,8 @@ function randomInt(min: number, max: number): number {
     return min + Math.floor((max - min) * Math.random());
 }
 
-export function generateBooleanArray(width: number, height: number): Array<boolean> {
+export function generateBooleanArray(width: number, height: number, bombAmount: number): Array<boolean> {
     const arrayLength = width * height;
-    const bombAmount = Math.floor(arrayLength / 4);
     const booleanArray = new Array<boolean>();
 
     for (let i = 0; i < arrayLength; i++) {
