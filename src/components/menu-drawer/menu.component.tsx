@@ -37,7 +37,7 @@ export const DrawerMenu = () => {
                 <ListItemIcon>
                     <TuneIcon fontSize="small"/>
                 </ListItemIcon>
-                <ListItemText primary="Level"/>
+                <ListItemText primary="Level" onClick={() => dispatch({type: ActionTypes.openLevelDialog})}/>
             </MenuItem>
             <MenuItem>
                 <ListItemIcon>

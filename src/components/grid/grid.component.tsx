@@ -11,6 +11,7 @@ import {
     selectIsGameFailed,
     selectIsGameWon,
     selectIsGridGenerated,
+    selectIsLevelDialogOpened,
     selectIsMagicWandSelected,
     selectIsMenuOpened,
     selectIsQuestionSelected,
@@ -55,6 +56,7 @@ const mapStateToProps = createStructuredSelector<AppState, GameState>({
     isMagicWandSelected: selectIsMagicWandSelected,
     isMenuOpened: selectIsMenuOpened,
     magicWandCounter: selectMagicWandCounter,
+    isLevelDialogOpened: selectIsLevelDialogOpened,
 })
 
 export default connect(mapStateToProps)(GridComponent)

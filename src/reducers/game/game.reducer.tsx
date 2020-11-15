@@ -31,6 +31,7 @@ export interface GameState {
     isMagicWandSelected: boolean;
     magicWandCounter: number;
     isMenuOpened: boolean;
+    isLevelDialogOpened: boolean;
     grid: Grid;
 }
 
@@ -46,6 +47,7 @@ export const INITIAL_STATE: GameState = {
     isMagicWandSelected: false,
     magicWandCounter: 3,
     isMenuOpened: false,
+    isLevelDialogOpened: false,
     grid: {
         cells: generateDefaultGrid(10, 10)
     }
@@ -102,29 +104,47 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
         case ActionTypes.selectFlag:
             return {
                 ...state,
+                isFlagSelected: !state.isFlagSelected,
                 isFlagCrossedSelected: false,
-                isFlagSelected: !state.isFlagSelected
+                isQuestionSelected: false,
+                isRemoveQuestionSelected: false,
+                isMagicWandSelected: false
             }
         case ActionTypes.selectCrossedFlag:
             return {
                 ...state,
+                isFlagCrossedSelected: !state.isFlagCrossedSelected,
                 isFlagSelected: false,
-                isFlagCrossedSelected: !state.isFlagCrossedSelected
+                isQuestionSelected: false,
+                isRemoveQuestionSelected: false,
+                isMagicWandSelected: false
             }
         case ActionTypes.selectQuestion:
             return {
                 ...state,
-                isQuestionSelected: true
+                isQuestionSelected: !state.isQuestionSelected,
+                isFlagSelected: false,
+                isFlagCrossedSelected: false,
+                isRemoveQuestionSelected: false,
+                isMagicWandSelected: false
             }
         case ActionTypes.selectCrossedQuestion:
             return {
                 ...state,
-                isRemoveQuestionSelected: true
+                isRemoveQuestionSelected: !state.isRemoveQuestionSelected,
+                isFlagSelected: false,
+                isFlagCrossedSelected: false,
+                isQuestionSelected: false,
+                isMagicWandSelected: false
             }
         case ActionTypes.selectMagicWand:
             return {
                 ...state,
-                isMagicWandSelected: state.isGridCalculated && state.magicWandCounter > 0
+                isMagicWandSelected: state.isMagicWandSelected ? false : state.isGridCalculated && state.magicWandCounter > 0,
+                isFlagSelected: false,
+                isFlagCrossedSelected: false,
+                isQuestionSelected: false,
+                isRemoveQuestionSelected: false
             }
         case ActionTypes.openMenuAction:
             return {
@@ -135,6 +155,22 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
             return {
                 ...state,
                 isMenuOpened: false
+            }
+        case ActionTypes.openLevelDialog:
+            return {
+                ...state,
+                isLevelDialogOpened: true,
+                isMenuOpened: false
+            }
+        case ActionTypes.closeLevelDialog:
+            return {
+                ...state,
+                isLevelDialogOpened: false
+            }
+        case ActionTypes.changeLevel:
+            return {
+                ...state
+                //TODO: handle change level
             }
         default:
             return INITIAL_STATE;

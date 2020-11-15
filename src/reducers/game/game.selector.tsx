@@ -99,3 +99,8 @@ export const selectMagicWandCounter = createSelector<AppState, GameState, number
     [selectGameState],
     (gameState: GameState) => gameState.magicWandCounter
 )
+
+export const selectIsLevelDialogOpened = createSelector<AppState, GameState, boolean>(
+    [selectGameState],
+    (gameState: GameState) => gameState.isLevelDialogOpened
+)

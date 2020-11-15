@@ -1,5 +1,6 @@
 import {GameState} from "../reducers/game/game.reducer";
 import {CellPosition} from "../components/cell/cell.component";
+import {GameLevel} from "../components/level-dialog/level-dialog.component";
 
 export enum ActionTypes {
     startGame,
@@ -16,6 +17,9 @@ export enum ActionTypes {
     selectMagicWand,
     openMenuAction,
     closeMenuAction,
+    openLevelDialog,
+    closeLevelDialog,
+    changeLevel,
 }
 
 export interface StartGame {
@@ -88,4 +92,19 @@ export interface CloseMenuAction {
     payload: null
 }
 
-export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime | DragNDropFlag | SelectFlagAction | SelectCrossedFlagAction | SelectQuestionAction | SelectCrossedQuestion | SelectMagicWand | OpenMenuAction | CloseMenuAction;
+export interface OpenLevelDialog {
+    type: ActionTypes.openLevelDialog
+    payload: null
+}
+
+export interface CloseLevelDialog {
+    type: ActionTypes.closeLevelDialog
+    payload: null
+}
+
+export interface ChangeLevel {
+    type: ActionTypes.changeLevel
+    payload: GameLevel
+}
+
+export type Action = StartGame | CellClicked | GameFailed | GameWon | CellRightClicked | IncrementTime | DragNDropFlag | SelectFlagAction | SelectCrossedFlagAction | SelectQuestionAction | SelectCrossedQuestion | SelectMagicWand | OpenMenuAction | CloseMenuAction | OpenLevelDialog | CloseLevelDialog | ChangeLevel;

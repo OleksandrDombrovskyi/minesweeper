@@ -1,0 +1,9 @@
+.dialog_content {
+    display: flex;
+}
+
+.radio_group {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
