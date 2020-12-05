@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/sapper/static/css/main.7b179864.chunk.css",
-    "main.js": "/sapper/static/js/main.c81ec3ed.chunk.js",
-    "main.js.map": "/sapper/static/js/main.c81ec3ed.chunk.js.map",
+    "main.js": "/sapper/static/js/main.4cbd85fa.chunk.js",
+    "main.js.map": "/sapper/static/js/main.4cbd85fa.chunk.js.map",
     "runtime-main.js": "/sapper/static/js/runtime-main.b63fdf8d.js",
     "runtime-main.js.map": "/sapper/static/js/runtime-main.b63fdf8d.js.map",
     "static/js/2.79fa60bf.chunk.js": "/sapper/static/js/2.79fa60bf.chunk.js",
     "static/js/2.79fa60bf.chunk.js.map": "/sapper/static/js/2.79fa60bf.chunk.js.map",
     "index.html": "/sapper/index.html",
-    "precache-manifest.22f6a55646e601906139f669481bf26b.js": "/sapper/precache-manifest.22f6a55646e601906139f669481bf26b.js",
+    "precache-manifest.6a30a040126b3230ee302a55ce194f8d.js": "/sapper/precache-manifest.6a30a040126b3230ee302a55ce194f8d.js",
     "service-worker.js": "/sapper/service-worker.js",
     "static/css/main.7b179864.chunk.css.map": "/sapper/static/css/main.7b179864.chunk.css.map",
     "static/js/2.79fa60bf.chunk.js.LICENSE.txt": "/sapper/static/js/2.79fa60bf.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.b63fdf8d.js",
     "static/js/2.79fa60bf.chunk.js",
     "static/css/main.7b179864.chunk.css",
-    "static/js/main.c81ec3ed.chunk.js"
+    "static/js/main.4cbd85fa.chunk.js"
   ]
 }
