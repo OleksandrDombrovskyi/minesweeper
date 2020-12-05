@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f67785ae7280a1df72b64458d0030468",
+    "revision": "1720894b64f6ff4cef49c377b95fffbb",
     "url": "/sapper/index.html"
   },
   {
-    "revision": "9c9c687fa1e705083f3d",
-    "url": "/sapper/static/css/main.8ea19c49.chunk.css"
+    "revision": "09997bd030327781d959",
+    "url": "/sapper/static/css/main.7b179864.chunk.css"
   },
   {
-    "revision": "2e20fc33614a889dbbf5",
-    "url": "/sapper/static/js/2.c1c060b5.chunk.js"
+    "revision": "0ef630738628ef4d9801",
+    "url": "/sapper/static/js/2.79fa60bf.chunk.js"
   },
   {
     "revision": "14dc907096ff79e6b7be55307d0260dd",
-    "url": "/sapper/static/js/2.c1c060b5.chunk.js.LICENSE.txt"
+    "url": "/sapper/static/js/2.79fa60bf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9c9c687fa1e705083f3d",
-    "url": "/sapper/static/js/main.cb937e55.chunk.js"
+    "revision": "09997bd030327781d959",
+    "url": "/sapper/static/js/main.c81ec3ed.chunk.js"
   },
   {
     "revision": "78897189c700bbe0a312",
