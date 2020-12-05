@@ -21,7 +21,7 @@ import {
 } from "../../reducers/game/game.selector";
 import {AppState} from "../../reducers/rootReducer";
 import {connect, useDispatch} from "react-redux";
-import {ActionTypes} from "../../actions/actions";
+import {gameWon} from "../../actions/actions";
 
 const GridComponent = (props: GameState) => {
 
@@ -36,7 +36,7 @@ const GridComponent = (props: GameState) => {
 
     useEffect(() => {
         if (isGameWon) {
-            dispatch({type: ActionTypes.gameWon})
+            dispatch(gameWon())
         }
     })
 

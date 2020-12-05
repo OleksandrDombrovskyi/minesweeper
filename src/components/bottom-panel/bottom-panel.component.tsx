@@ -9,7 +9,13 @@ import {
 } from "../../reducers/game/game.selector";
 import './bottom-panel.style.css';
 import {Button} from "../button/button.component";
-import {ActionTypes} from "../../actions/actions";
+import {
+    selectCrossedFlag,
+    selectCrossedQuestion,
+    selectFlag,
+    selectMagicWand,
+    selectQuestion
+} from "../../actions/actions";
 
 export const BottomPanel = () => {
 
@@ -29,30 +35,30 @@ export const BottomPanel = () => {
     return (
         <div className="bottom_panel">
             <div className="questions">
-                <div className="add_question" onClick={() => dispatch({type: ActionTypes.selectQuestion})}>
+                <div className="add_question" onClick={() => dispatch(selectQuestion())}>
                     <Button isPressed={isQuestionSelected} height={buttonHeight} width={buttonWidth}>
                         <img width="44" height="44" src="question.png" alt="123"/>
                     </Button>
                 </div>
-                <div className="remove_question small_button" onClick={() => dispatch({type: ActionTypes.selectCrossedQuestion})}>
+                <div className="remove_question small_button" onClick={() => dispatch(selectCrossedQuestion())}>
                     <Button isPressed={isRemoveQuestionSelected} height={smallButtonHeight} width={smallButtonWidth}>
                         <img width="22" height="22" src="crossed_question.png" alt="123"/>
                     </Button>
                 </div>
             </div>
-            <div className="magic_wand" onClick={() => dispatch({type: ActionTypes.selectMagicWand})} style={disableIdCounterZero(magicWandCounter)}>
+            <div className="magic_wand" onClick={() => dispatch(selectMagicWand())} style={disableIdCounterZero(magicWandCounter)}>
                 <Button isPressed={isIsMagicWandSelected} height={buttonHeight} width={buttonWidth}>
                     <img width="44" height="44" src="magic_wand.png" alt="123"/>
                     <span className="magic_wand_counter">{magicWandCounter}</span>
                 </Button>
             </div>
             <div className="flags">
-                <div className="remove_flag small_button" onClick={() => dispatch({type: ActionTypes.selectCrossedFlag})}>
+                <div className="remove_flag small_button" onClick={() => dispatch(selectCrossedFlag())}>
                     <Button isPressed={isCrossedFlagSelected} height={smallButtonHeight} width={smallButtonWidth}>
                         <img width="22" height="22" src="crossed_flag.png" alt="123"/>
                     </Button>
                 </div>
-                <div className="add_flag" onClick={() => dispatch({type: ActionTypes.selectFlag})}>
+                <div className="add_flag" onClick={() => dispatch(selectFlag())}>
                     <Button isPressed={isFlagSelected} height={buttonHeight} width={buttonWidth}>
                         <img width="44" height="44" src="flag_big.png" alt="123"/>
                     </Button>

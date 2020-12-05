@@ -1,13 +1,13 @@
 import React, {Dispatch, MouseEvent, useEffect} from "react";
 import './cell.style.css';
 import {connect, useDispatch} from "react-redux";
-import {Action, ActionTypes} from "../../actions/actions";
 import {AppState} from "../../reducers/rootReducer";
 import {selectCellIsFailed, selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
 import {Button} from "../button/button.component";
 import {SymbolButtonContent} from "../symbol-button-content/symbol-button-content.component";
 import {FlagImage, DnDTypes, FlagDragObject} from "../flag/flag.component";
 import {useDrop} from "react-dnd";
+import {cellClicked, cellClickFailed, cellRightClicked, dragNDropFlag} from "../../actions/actions";
 
 export enum CellState {
     INITIAL,
@@ -42,7 +42,7 @@ const GridCell = (props: CellProps) => {
 
     useEffect(() => {
         if (isFailed) {
-            dispatch({type: ActionTypes.cellClickFailed});
+            dispatch(cellClickFailed());
         }
     });
 
@@ -73,13 +73,13 @@ function onCellRightClick(position: CellPosition, dispatch: Dispatch<any>) {
     return (event: MouseEvent) => {
         // prevent opening contextual menu on right button click
         event.preventDefault();
-        dispatch({type: ActionTypes.cellRightClicked, payload: position})
+        dispatch(cellRightClicked(position))
     }
 }
 
-function onCellClick(position: CellPosition, dispatch: Dispatch<Action>) {
+function onCellClick(position: CellPosition, dispatch: Dispatch<any>) {
     return () => {
-        dispatch({type: ActionTypes.cellClicked, payload: position})
+        dispatch(cellClicked(position))
     };
 }
 
@@ -110,7 +110,7 @@ function getQuestionContent() {
 
 function getFlagContent(position: CellPosition) {
     return (
-            <FlagImage cellPosition={position}/>
+        <FlagImage cellPosition={position}/>
     );
 }
 
@@ -139,13 +139,10 @@ function isTheSameCell(flagPosition: CellPosition | undefined, position: CellPos
 }
 
 function removeFlagFromSourceCellAndAddToDestinationCell(dispatch: (value: any) => void, position: CellPosition, flagInitPosition: CellPosition | undefined) {
-    dispatch({
-        type: ActionTypes.dragNDropFlag,
-        payload: {
-            cellToAddFlag: position,
-            cellToRemoveFlag: flagInitPosition
-        }
-    })
+    dispatch(dragNDropFlag({
+        cellToAddFlag: position,
+        cellToRemoveFlag: flagInitPosition
+    }))
 }
 
 const mapStateToProps = (state: AppState, ownProps: CellProps): CellProps => ({

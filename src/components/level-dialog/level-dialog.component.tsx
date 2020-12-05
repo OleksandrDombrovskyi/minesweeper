@@ -18,7 +18,7 @@ import {
 import TuneIcon from "@material-ui/icons/Tune";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsLevelDialogOpened} from "../../reducers/game/game.selector";
-import {ActionTypes} from "../../actions/actions";
+import {changeLevel, closeLevelDialog} from "../../actions/actions";
 
 export type GameComplexity = "easy" | "medium" | "hard" | "crazy";
 export type GameScale = "small" | "medium" | "big" | "huge";
@@ -30,22 +30,22 @@ export interface GameLevel {
 
 export const LevelDialog = () => {
 
-    const [scaleValue, setScale] = useState("small");
-    const [complexityValue, setComplexity] = useState("easy");
+    const [scaleValue, setScale] = useState<GameScale>("small");
+    const [complexityValue, setComplexity] = useState<GameComplexity>("easy");
 
     const handleChangeScale = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setScale((event.target as HTMLInputElement).value);
+        setScale((event.target as HTMLInputElement).value as GameScale);
     };
 
     const handleChangeComplexity = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setComplexity((event.target as HTMLInputElement).value);
+        setComplexity((event.target as HTMLInputElement).value as GameComplexity);
     }
 
     const dispatch = useDispatch();
     const isLevelDialogOpened = useSelector(selectIsLevelDialogOpened);
 
     return (
-        <Dialog open={isLevelDialogOpened} onClose={() => dispatch({type: ActionTypes.closeLevelDialog})}
+        <Dialog open={isLevelDialogOpened} onClose={() => dispatch(closeLevelDialog())}
                 aria-labelledby="form-dialog-title" fullWidth={true}>
             <DialogTitle id="form-dialog-title">
                 <Toolbar>
@@ -82,13 +82,11 @@ export const LevelDialog = () => {
                     </div>
                 </div>
                 <DialogActions>
-                    <Button onClick={() => dispatch({type: ActionTypes.closeLevelDialog})} color="primary">
+                    <Button onClick={() => dispatch(closeLevelDialog())} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={() => dispatch({
-                        type: ActionTypes.changeLevel,
-                        payload: {scale: scaleValue, complexity: complexityValue}
-                    })} color="primary">
+                    <Button onClick={() => dispatch(changeLevel({scale: scaleValue, complexity: complexityValue}))}
+                            color="primary">
                         Save
                     </Button>
                 </DialogActions>

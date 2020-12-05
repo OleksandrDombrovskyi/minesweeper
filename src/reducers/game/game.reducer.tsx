@@ -1,4 +1,4 @@
-import {Action, ActionTypes} from "../../actions/actions";
+import * as actions from "../../actions/actions";
 import {CellPosition, CellProps} from "../../components/cell/cell.component";
 import {
     addFlag,
@@ -15,6 +15,9 @@ import {
 } from "../../utils/gridUtils";
 import {generateDefaultGrid, moveBombsFromClickedCellAndCalculateGrid} from "../../utils/gridGeneratorUtils";
 import {LevelParams, levelsTable} from "./data";
+import {ActionType, getType, Reducer} from "typesafe-actions";
+
+type Actions = ActionType<typeof actions>
 
 export interface Grid {
     cells: Array<Array<CellProps>>
@@ -58,11 +61,11 @@ export const INITIAL_STATE: GameState = {
     }
 }
 
-export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): GameState => {
+export const gameReducer: Reducer<GameState, Actions> = (state: GameState = INITIAL_STATE, action: Actions): GameState => {
     switch (action.type) {
-        case ActionTypes.startGame:
+        case getType(actions.startGame):
             return createNewGameState(action.payload);
-        case ActionTypes.cellClicked:
+        case getType(actions.cellClicked):
             let cells = rerenderGridOnClick(state, action.payload);
             return {
                 ...state,
@@ -76,37 +79,37 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isRemoveQuestionSelected: false,
                 isMagicWandSelected: false
             }
-        case ActionTypes.cellClickFailed:
+        case getType(actions.cellClickFailed):
             return {
                 ...state,
                 grid: openAllBombsGrid(state.grid),
                 isGameFailed: true,
             }
-        case ActionTypes.cellRightClicked:
+        case getType(actions.cellRightClicked):
             return {
                 ...state,
                 grid: {
                     cells: rerenderGridOnRightClick(state.grid.cells, action.payload),
                 }
             }
-        case ActionTypes.gameWon:
+        case getType(actions.gameWon):
             return {
                 ...state,
                 grid: openAllBombsGrid(state.grid),
             }
-        case ActionTypes.incrementTime:
+        case getType(actions.incrementTime):
             return {
                 ...state,
                 gameTime: isGameInProcess(state) ? state.gameTime + 1 : state.gameTime,
             }
-        case ActionTypes.dragNDropFlag:
+        case getType(actions.dragNDropFlag):
             return {
                 ...state,
                 grid: {
                     cells: rerenderGridOnDragNDroppedFlag(state.grid.cells, action.payload.cellToAddFlag, action.payload.cellToRemoveFlag),
                 }
             }
-        case ActionTypes.selectFlag:
+        case getType(actions.selectFlag):
             return {
                 ...state,
                 isFlagSelected: !state.isFlagSelected,
@@ -115,7 +118,7 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isRemoveQuestionSelected: false,
                 isMagicWandSelected: false
             }
-        case ActionTypes.selectCrossedFlag:
+        case getType(actions.selectCrossedFlag):
             return {
                 ...state,
                 isFlagCrossedSelected: !state.isFlagCrossedSelected,
@@ -124,7 +127,7 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isRemoveQuestionSelected: false,
                 isMagicWandSelected: false
             }
-        case ActionTypes.selectQuestion:
+        case getType(actions.selectQuestion):
             return {
                 ...state,
                 isQuestionSelected: !state.isQuestionSelected,
@@ -133,7 +136,7 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isRemoveQuestionSelected: false,
                 isMagicWandSelected: false
             }
-        case ActionTypes.selectCrossedQuestion:
+        case getType(actions.selectCrossedQuestion):
             return {
                 ...state,
                 isRemoveQuestionSelected: !state.isRemoveQuestionSelected,
@@ -142,7 +145,7 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isQuestionSelected: false,
                 isMagicWandSelected: false
             }
-        case ActionTypes.selectMagicWand:
+        case getType(actions.selectMagicWand):
             return {
                 ...state,
                 isMagicWandSelected: state.isMagicWandSelected ? false : state.isGridCalculated && state.magicWandCounter > 0,
@@ -151,28 +154,28 @@ export const gameReducer = (state: GameState = INITIAL_STATE, action: Action): G
                 isQuestionSelected: false,
                 isRemoveQuestionSelected: false
             }
-        case ActionTypes.openMenuAction:
+        case getType(actions.openMenuAction):
             return {
                 ...state,
                 isMenuOpened: true
             }
-        case ActionTypes.closeMenuAction:
+        case getType(actions.closeMenuAction):
             return {
                 ...state,
                 isMenuOpened: false
             }
-        case ActionTypes.openLevelDialog:
+        case getType(actions.openLevelDialog):
             return {
                 ...state,
                 isLevelDialogOpened: true,
                 isMenuOpened: false
             }
-        case ActionTypes.closeLevelDialog:
+        case getType(actions.closeLevelDialog):
             return {
                 ...state,
                 isLevelDialogOpened: false
             }
-        case ActionTypes.changeLevel:
+        case getType(actions.changeLevel):
             const levelParams: LevelParams = levelsTable.get(action.payload.scale)?.get(action.payload.complexity) as LevelParams;
             return createNewGameState(levelParams)
         default:

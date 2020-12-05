@@ -4,11 +4,11 @@ import {CellPosition} from "../cell/cell.component";
 import {DragPreviewImage, DragSourceMonitor, useDrag} from "react-dnd";
 import {SourceType} from "dnd-core";
 import {useDispatch} from "react-redux";
-import {Action, ActionTypes} from "../../actions/actions";
 import {Dispatch} from "redux";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
 // @ts-ignore
 import {usePreview} from 'react-dnd-preview';
+import {dragNDropFlag} from "../../actions/actions";
 
 export const DnDTypes = {
     FLAG: 'flag'
@@ -57,13 +57,8 @@ export const FlagImage = (props: FlagProps) => {
     )
 }
 
-function removeFlagFromCell(dispatch: Dispatch<Action>, cellPosition: CellPosition) {
-    dispatch({
-        type: ActionTypes.dragNDropFlag,
-        payload: {
-            cellToRemoveFlag: cellPosition
-        }
-    })
+function removeFlagFromCell(dispatch: Dispatch<any>, cellPosition: CellPosition) {
+    dispatch(dragNDropFlag({cellToRemoveFlag: cellPosition}))
 }
 
 const MobilePreviewForTouchEvent = () => {
@@ -73,7 +68,8 @@ const MobilePreviewForTouchEvent = () => {
     }
     if (itemType === DnDTypes.FLAG) {
         return (
-            <img width="50" height="50" src="flag_big.png" alt="123" style={{...style, zIndex: 50, top: -10, left: -10}}/>
+            <img width="50" height="50" src="flag_big.png" alt="123"
+                 style={{...style, zIndex: 50, top: -10, left: -10}}/>
         )
     }
     return null;

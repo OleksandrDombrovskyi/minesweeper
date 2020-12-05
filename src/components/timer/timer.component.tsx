@@ -3,7 +3,7 @@ import {formatTime} from "../../utils/timerUtils";
 import './timer.style.css';
 import {useDispatch, useSelector} from "react-redux";
 import {selectGameTime} from "../../reducers/game/game.selector";
-import {ActionTypes} from "../../actions/actions";
+import {incrementTime} from "../../actions/actions";
 
 let intervalId: NodeJS.Timeout;
 
@@ -14,7 +14,7 @@ export const Timer = () => {
 
     useEffect(() => {
         intervalId = setInterval(
-            () => dispatch({type: ActionTypes.incrementTime}),
+            () => dispatch(incrementTime()),
             1000
         );
 

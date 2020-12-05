@@ -4,7 +4,7 @@ import {CentralNavbar} from "../central-navbar/central-navbar.component";
 import {isMobileDevice} from "../../utils/detectmobilebrowser";
 import MenuIcon from '@material-ui/icons/Menu';
 import {useDispatch} from "react-redux";
-import {ActionTypes} from "../../actions/actions";
+import {openMenuAction} from "../../actions/actions";
 
 export const Header = () => {
 
@@ -19,7 +19,7 @@ export const Header = () => {
                         fontSize="large"
                         style={{paddingTop: 10, paddingLeft: 10, cursor: "pointer"}}
                         color="action"
-                        onClick={() => dispatch({type: ActionTypes.openMenuAction})}/>
+                        onClick={() => dispatch(openMenuAction())}/>
                 </div>
             }
             <div className="centered_box">

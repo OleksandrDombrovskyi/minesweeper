@@ -5,11 +5,11 @@ import TuneIcon from '@material-ui/icons/Tune';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
 import CloseIcon from '@material-ui/icons/Close';
-import {ActionTypes} from "../../actions/actions";
 import {useDispatch, useSelector} from "react-redux";
 // @ts-ignore
 import Drawer from 'react-motion-drawer';
 import {selectIsMenuOpened} from "../../reducers/game/game.selector";
+import {closeMenuAction, openLevelDialog, openMenuAction} from "../../actions/actions";
 
 export const DrawerMenu = () => {
 
@@ -20,8 +20,8 @@ export const DrawerMenu = () => {
         <Drawer className="drawer-menu" open={isMenuOpened}
                 onChange={(isOpened: boolean) =>
                     isOpened
-                        ? dispatch({type: ActionTypes.openMenuAction})
-                        : dispatch({type: ActionTypes.closeMenuAction})}
+                        ? dispatch(openMenuAction())
+                        : dispatch(closeMenuAction())}
                 overlayColor="rgba(0, 0, 0, 0.4)" width={250}>
             <Toolbar>
                 <Typography variant="h6">
@@ -31,13 +31,13 @@ export const DrawerMenu = () => {
                     fontSize="large"
                     color="action"
                     style={{marginLeft: "auto", cursor: "pointer"}}
-                    onClick={() => dispatch({type: ActionTypes.closeMenuAction})}/>
+                    onClick={() => dispatch(closeMenuAction())}/>
             </Toolbar>
             <MenuItem>
                 <ListItemIcon>
                     <TuneIcon fontSize="small"/>
                 </ListItemIcon>
-                <ListItemText primary="Level" onClick={() => dispatch({type: ActionTypes.openLevelDialog})}/>
+                <ListItemText primary="Level" onClick={() => dispatch(openLevelDialog())}/>
             </MenuItem>
             <MenuItem>
                 <ListItemIcon>
