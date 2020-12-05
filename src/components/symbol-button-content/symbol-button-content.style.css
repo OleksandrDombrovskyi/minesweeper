@@ -1,7 +1,7 @@
 span.question, span[class*="number_"] {
     font-size: 18pt;
     font-family: Verdana, serif;
-    font-weight: 500;
+    font-weight: 600;
     cursor: default;
     user-select: none;
 }
@@ -17,21 +17,29 @@ span.number_1 {
 }
 
 span.number_2 {
-    color: red;
-}
-
-span.number_3 {
     color: green;
 }
 
+span.number_3 {
+    color: red;
+}
+
 span.number_4 {
-    color: #320735;
+    color: darkblue;
 }
 
 span.number_5 {
-    color: #1e0435;
+    color: darkred;
 }
 
 span.number_6 {
-    color: #350103;
+    color: cadetblue;
+}
+
+span.number_7 {
+    color: black;
+}
+
+span.number_8 {
+    color: grey;
 }
