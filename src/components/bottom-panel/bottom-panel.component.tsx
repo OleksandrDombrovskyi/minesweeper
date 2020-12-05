@@ -37,30 +37,30 @@ export const BottomPanel = () => {
             <div className="questions">
                 <div className="add_question" onClick={() => dispatch(selectQuestion())}>
                     <Button isPressed={isQuestionSelected} height={buttonHeight} width={buttonWidth}>
-                        <img width="44" height="44" src="question.png" alt="123"/>
+                        <img width="44" height="44" src="question.png" alt="?"/>
                     </Button>
                 </div>
                 <div className="remove_question small_button" onClick={() => dispatch(selectCrossedQuestion())}>
                     <Button isPressed={isRemoveQuestionSelected} height={smallButtonHeight} width={smallButtonWidth}>
-                        <img width="22" height="22" src="crossed_question.png" alt="123"/>
+                        <img width="22" height="22" src="crossed_question.png" alt="?x"/>
                     </Button>
                 </div>
             </div>
             <div className="magic_wand" onClick={() => dispatch(selectMagicWand())} style={disableIdCounterZero(magicWandCounter)}>
                 <Button isPressed={isIsMagicWandSelected} height={buttonHeight} width={buttonWidth}>
-                    <img width="44" height="44" src="magic_wand.png" alt="123"/>
+                    <img width="44" height="44" src="magic_wand.png" alt="Magic"/>
                     <span className="magic_wand_counter">{magicWandCounter}</span>
                 </Button>
             </div>
             <div className="flags">
                 <div className="remove_flag small_button" onClick={() => dispatch(selectCrossedFlag())}>
                     <Button isPressed={isCrossedFlagSelected} height={smallButtonHeight} width={smallButtonWidth}>
-                        <img width="22" height="22" src="crossed_flag.png" alt="123"/>
+                        <img width="22" height="22" src="crossed_flag.png" alt="Fx"/>
                     </Button>
                 </div>
                 <div className="add_flag" onClick={() => dispatch(selectFlag())}>
                     <Button isPressed={isFlagSelected} height={buttonHeight} width={buttonWidth}>
-                        <img width="44" height="44" src="flag_big.png" alt="123"/>
+                        <img width="44" height="44" src="flag_big.png" alt="F"/>
                     </Button>
                 </div>
             </div>

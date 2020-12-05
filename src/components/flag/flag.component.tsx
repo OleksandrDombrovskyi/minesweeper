@@ -52,7 +52,7 @@ export const FlagImage = (props: FlagProps) => {
             }
             <img ref={drag} width="22" height="22" src="flag_24x24.png"
                  style={{opacity: cellPosition && isDragging ? 0.5 : 1}}
-                 alt="123"/>
+                 alt="F"/>
         </>
     )
 }
@@ -68,7 +68,7 @@ const MobilePreviewForTouchEvent = () => {
     }
     if (itemType === DnDTypes.FLAG) {
         return (
-            <img width="50" height="50" src="flag_big.png" alt="123"
+            <img width="50" height="50" src="flag_big.png" alt="F"
                  style={{...style, zIndex: 50, top: -10, left: -10}}/>
         )
     }

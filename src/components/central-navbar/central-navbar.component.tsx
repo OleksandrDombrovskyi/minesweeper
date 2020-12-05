@@ -43,7 +43,7 @@ export const CentralNavbar = () => {
                 <Counter/>
             </div>
             <div className="smile">
-                <img className="smile_image" src={"smiles/" + imageName} alt="fail"
+                <img className="smile_image" src={"smiles/" + imageName} alt=":)"
                      onClick={dispatchStartGame(dispatch, levelParams)}/>
             </div>
             <div className="timer">

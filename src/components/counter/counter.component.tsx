@@ -11,7 +11,7 @@ export const Counter = () => {
     return (
         <div>
             <div className="bomb_amount_container"><span className="bomb_amount">{bombAmount - flagAmount}</span></div>
-            <div className="image_container"><img className="bomb_image" src="bomb.svg" alt="123"/></div>
+            <div className="image_container"><img className="bomb_image" src="bomb.svg" alt="bomb"/></div>
         </div>
     )
 }

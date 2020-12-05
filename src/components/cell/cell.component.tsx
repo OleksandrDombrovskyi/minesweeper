@@ -116,7 +116,7 @@ function getFlagContent(position: CellPosition) {
 
 function getBombContent() {
     return (
-        <img className="bomb" width="33" height="33" src="bomb.svg" alt="123"/>
+        <img className="bomb" width="33" height="33" src="bomb.svg" alt='bomb'/>
     );
 }
 
