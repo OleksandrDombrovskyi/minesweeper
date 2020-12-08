@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/sapper/static/css/main.7b179864.chunk.css",
-    "main.js": "/sapper/static/js/main.4cbd85fa.chunk.js",
-    "main.js.map": "/sapper/static/js/main.4cbd85fa.chunk.js.map",
-    "runtime-main.js": "/sapper/static/js/runtime-main.b63fdf8d.js",
-    "runtime-main.js.map": "/sapper/static/js/runtime-main.b63fdf8d.js.map",
-    "static/js/2.79fa60bf.chunk.js": "/sapper/static/js/2.79fa60bf.chunk.js",
-    "static/js/2.79fa60bf.chunk.js.map": "/sapper/static/js/2.79fa60bf.chunk.js.map",
-    "index.html": "/sapper/index.html",
-    "precache-manifest.6a30a040126b3230ee302a55ce194f8d.js": "/sapper/precache-manifest.6a30a040126b3230ee302a55ce194f8d.js",
-    "service-worker.js": "/sapper/service-worker.js",
-    "static/css/main.7b179864.chunk.css.map": "/sapper/static/css/main.7b179864.chunk.css.map",
-    "static/js/2.79fa60bf.chunk.js.LICENSE.txt": "/sapper/static/js/2.79fa60bf.chunk.js.LICENSE.txt",
-    "static/media/timer.style.css": "/sapper/static/media/Digital_Dismay.582cac29.otf"
+    "main.css": "/minesweeper/static/css/main.3a2db5c1.chunk.css",
+    "main.js": "/minesweeper/static/js/main.1efff4d7.chunk.js",
+    "main.js.map": "/minesweeper/static/js/main.1efff4d7.chunk.js.map",
+    "runtime-main.js": "/minesweeper/static/js/runtime-main.f2b1b5e8.js",
+    "runtime-main.js.map": "/minesweeper/static/js/runtime-main.f2b1b5e8.js.map",
+    "static/js/2.79fa60bf.chunk.js": "/minesweeper/static/js/2.79fa60bf.chunk.js",
+    "static/js/2.79fa60bf.chunk.js.map": "/minesweeper/static/js/2.79fa60bf.chunk.js.map",
+    "index.html": "/minesweeper/index.html",
+    "precache-manifest.b967d193b5c85d32716e69a1fcaf1cbf.js": "/minesweeper/precache-manifest.b967d193b5c85d32716e69a1fcaf1cbf.js",
+    "service-worker.js": "/minesweeper/service-worker.js",
+    "static/css/main.3a2db5c1.chunk.css.map": "/minesweeper/static/css/main.3a2db5c1.chunk.css.map",
+    "static/js/2.79fa60bf.chunk.js.LICENSE.txt": "/minesweeper/static/js/2.79fa60bf.chunk.js.LICENSE.txt",
+    "static/media/timer.style.css": "/minesweeper/static/media/Digital_Dismay.582cac29.otf"
   },
   "entrypoints": [
-    "static/js/runtime-main.b63fdf8d.js",
+    "static/js/runtime-main.f2b1b5e8.js",
     "static/js/2.79fa60bf.chunk.js",
-    "static/css/main.7b179864.chunk.css",
-    "static/js/main.4cbd85fa.chunk.js"
+    "static/css/main.3a2db5c1.chunk.css",
+    "static/js/main.1efff4d7.chunk.js"
   ]
 }
