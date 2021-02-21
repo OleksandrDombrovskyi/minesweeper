@@ -9,8 +9,6 @@ import {reducers} from "./reducers/rootReducer";
 import logger from 'redux-logger';
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {TouchBackend} from 'react-dnd-touch-backend'
-import {isMobileDevice} from "./utils/detectmobilebrowser";
 
 const middlewares = [];
 
@@ -20,10 +18,12 @@ if (process.env.NODE_ENV === 'development') {
 
 const store = createStore(reducers, applyMiddleware(...middlewares));
 
+// to turn drag-n-drop feature on for mobile client, use <DndProvider backend={isMobileDevice() ? TouchBackend : HTML5Backend}>
+//TODO: make it configurable in Settings
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <DndProvider backend={isMobileDevice() ? TouchBackend : HTML5Backend}>
+            <DndProvider backend={HTML5Backend}>
                 <App/>
             </DndProvider>
         </Provider>
