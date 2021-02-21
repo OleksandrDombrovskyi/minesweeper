@@ -29,7 +29,7 @@ export function moveBombsFromClickedCellArea(position: CellPosition, grid: Array
                 do {
                     newX = randomInt(0, grid[0].length - 1);
                     newY = randomInt(0, grid.length - 1);
-                } while(isNewPositionInClickedCellArea(newX, newY, position) || isBombCell(newX, newY, grid))
+                } while (isNewPositionInClickedCellArea(newX, newY, position) || isBombCell(newX, newY, grid))
                 cell.number = 0;
                 grid[newY][newX].number = -1;
             }

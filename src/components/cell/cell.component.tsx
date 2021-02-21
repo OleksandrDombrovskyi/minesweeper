@@ -45,7 +45,7 @@ const GridCell: FC<CellProps> = memo(({position, number, state, isFailed}) => {
         }
     }, [dispatch, isFailed]);
 
-    const [{isOver}, drop] = useDrop<FlagDragObject, any, {isOver: boolean}>({
+    const [{isOver}, drop] = useDrop<FlagDragObject, any, { isOver: boolean }>({
         accept: DnDTypes.FLAG,
         drop: (item: FlagDragObject) => handleDragNDropFlag(item, position, state, dispatch),
         collect: monitor => ({
@@ -66,7 +66,14 @@ const GridCell: FC<CellProps> = memo(({position, number, state, isFailed}) => {
             </div>
         </div>
     );
-});
+}, ((prevProps: CellProps, nextProps: CellProps) => {
+    // rendering optimization on first click: CellProps.number is skipped because it is calculated after first click
+    let isPositionEqual = prevProps.position.x === nextProps.position.x
+        && prevProps.position.y === nextProps.position.y;
+    return isPositionEqual
+        && prevProps.state === nextProps.state
+        && prevProps.isFailed === nextProps.isFailed;
+}));
 
 function onCellRightClick(position: CellPosition, dispatch: Dispatch<any>) {
     return (event: MouseEvent) => {
