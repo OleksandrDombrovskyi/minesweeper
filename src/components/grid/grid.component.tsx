@@ -38,7 +38,7 @@ const GridComponent = (props: GameState) => {
         if (isGameWon) {
             dispatch(gameWon())
         }
-    })
+    }, [dispatch, isGameWon])
 
     const numberOfColumns = level.width;
     const numberOfRows = level.height;

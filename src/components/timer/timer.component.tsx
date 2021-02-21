@@ -21,7 +21,7 @@ export const Timer = () => {
         return () => {
             clearInterval(intervalId);
         }
-    })
+    }, [dispatch])
 
     return (
         <div>

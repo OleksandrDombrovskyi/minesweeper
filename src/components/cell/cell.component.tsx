@@ -43,9 +43,9 @@ const GridCell: FC<CellProps> = memo(({position, number, state, isFailed}) => {
         if (isFailed) {
             dispatch(cellClickFailed());
         }
-    });
+    }, [dispatch, isFailed]);
 
-    const [{isOver}, drop] = useDrop<FlagDragObject, any, any>({
+    const [{isOver}, drop] = useDrop<FlagDragObject, any, {isOver: boolean}>({
         accept: DnDTypes.FLAG,
         drop: (item: FlagDragObject) => handleDragNDropFlag(item, position, state, dispatch),
         collect: monitor => ({
