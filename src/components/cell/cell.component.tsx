@@ -1,11 +1,11 @@
-import React, {Dispatch, MouseEvent, useEffect} from "react";
+import React, {Dispatch, FC, memo, MouseEvent, useEffect} from "react";
 import './cell.style.css';
 import {connect, useDispatch} from "react-redux";
 import {AppState} from "../../reducers/rootReducer";
 import {selectCellIsFailed, selectCellNumber, selectCellState} from "../../reducers/game/game.selector";
 import {Button} from "../button/button.component";
 import {SymbolButtonContent} from "../symbol-button-content/symbol-button-content.component";
-import {FlagImage, DnDTypes, FlagDragObject} from "../flag/flag.component";
+import {DnDTypes, FlagDragObject, FlagImage} from "../flag/flag.component";
 import {useDrop} from "react-dnd";
 import {cellClicked, cellClickFailed, cellRightClicked, dragNDropFlag} from "../../actions/actions";
 
@@ -35,9 +35,8 @@ export class CellProps {
     }
 }
 
-const GridCell = (props: CellProps) => {
+const GridCell: FC<CellProps> = memo(({position, number, state, isFailed}) => {
 
-    const {position, number, state, isFailed} = props;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -55,7 +54,7 @@ const GridCell = (props: CellProps) => {
     });
 
     return (
-        <div id={props.position.x + "_" + props.position.y} className="gridCell"
+        <div id={position.x + "_" + position.y} className="gridCell"
              onClick={onCellClick(position, dispatch)}
              onContextMenu={onCellRightClick(position, dispatch)}>
             <div ref={drop}>
@@ -67,7 +66,7 @@ const GridCell = (props: CellProps) => {
             </div>
         </div>
     );
-}
+});
 
 function onCellRightClick(position: CellPosition, dispatch: Dispatch<any>) {
     return (event: MouseEvent) => {
